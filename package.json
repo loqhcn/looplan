@@ -1,0 +1,28 @@
+{
+  "name": "mulo-open",
+  "private": false,
+  "version": "1.0.3",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vue": "^3.5.13"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.3",
+    "sass": "^1.58.3",
+    "vite": "^6.2.3"
+  },
+  "files": [
+    "lib"
+  ],
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/loqhcn/looplan.git"
+  },
+  "main": "lib/mulo-open.umd.js"
+}
