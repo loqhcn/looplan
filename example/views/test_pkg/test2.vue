@@ -1,6 +1,6 @@
 <template>
     <div class="m-layout">
-        home
+        test2
     </div>
 </template>
 <script setup>
@@ -11,4 +11,5 @@ const state = reactive({
 })
 </script>
 <style lang="scss">
+
 </style>

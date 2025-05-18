@@ -1,28 +1,49 @@
 {
-  "name": "mulo-open",
+  "name": "looplan",
   "private": false,
-  "version": "1.0.3",
+  "version": "1.1.2",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && tsc",
+    "build:types": "tsc --project tsconfig.build.json --emitDeclarationOnly",
     "preview": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.5.13"
+    "axios": "^1.8.4",
+    "looplan-ui": "^1.0.1"
   },
   "devDependencies": {
+    "@tsconfig/node22": "^22.0.1",
+    "@types/jsdom": "^21.1.7",
+    "@types/lodash": "^4.17.16",
+    "@types/node": "^22.14.0",
     "@vitejs/plugin-vue": "^5.2.3",
+    "@vitejs/plugin-vue-jsx": "^4.1.2",
+    "@vue/test-utils": "^2.4.6",
+    "@vue/tsconfig": "^0.7.0",
+    "cross-env": "^7.0.3",
+    "lodash": "^4.17.21",
     "sass": "^1.58.3",
-    "vite": "^6.2.3"
+    "typescript": "^5.8.2",
+    "vite": "^6.2.3",
+    "vitest": "^3.1.1",
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.0",
+    "vue-tsc": "^2.2.8"
   },
   "files": [
-    "lib"
+    "lib",
+    "types",
+    "README.md",
+    "LICENSE"
   ],
   "license": "ISC",
   "repository": {
     "type": "git",
     "url": "https://github.com/loqhcn/looplan.git"
   },
-  "main": "lib/mulo-open.umd.js"
+  "main": "lib/mulo-open.umd.js",
+  "module": "lib/looplan.es.js",
+  "types": "types/index.d.ts"
 }
