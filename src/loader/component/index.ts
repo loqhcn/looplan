@@ -4,6 +4,7 @@ import asyncLoading from "./loading/asyncLoading.vue";
 import asyncError from "./loading/asyncError.vue";
 import { JsDataType } from "@/lib/data-type";
 import type { ComponentPackageConfig, ComponentLoaderOptions, ComponentOption } from "@/types/component";
+import styleManager from "@/loader/component/lib/StyleManager";
 
 /**
  * 通过名称判断是否使用异步组件
@@ -28,34 +29,43 @@ function registerPackage(packageConfig: ComponentPackageConfig) {
 }
 
 /**
- * 加载包级别样式
- * @param packageName 包名称
+ * 加载样式（支持包级别和组件级别）
+ * @param name 样式名称，格式：包名 或 包名@组件名
+ * @param styleCdn 样式CDN链接数组（可选，如果不提供则从配置中获取）
+ * @param version 版本号（可选）
  */
-async function loadPackageStyles(packageName: string): Promise<void> {
-    return componentManager.loadPackageStyles(packageName);
+async function loadStyle(name: string, styleCdn?: string[], version?: string): Promise<void> {
+    return styleManager.loadStyle(name, styleCdn as string[] || [], version);
 }
 
 /**
- * 卸载包级别样式
- * @param packageName 包名称
+ * 卸载样式（支持包级别和组件级别）
+ * @param name 样式名称，格式：包名 或 包名@组件名
  */
-function unloadPackageStyles(packageName: string): void {
-    componentManager.unloadPackageStyles(packageName);
+function unloadStyle(name: string): void {
+    styleManager.unloadStyle(name);
 }
 
 /**
- * 卸载特定组件的样式
- * @param componentName 组件名称，格式：包名@组件名
+ * 检查样式是否已加载
+ * @param name 样式名称
  */
-function unloadComponentStyles(componentName: string): void {
-    componentManager.unloadComponentStyles(componentName);
+function isStyleLoaded(name: string): boolean {
+    return styleManager.isStyleLoaded(name);
 }
 
 /**
- * 获取所有已加载的样式链接
+ * 获取所有已加载的样式
  */
-function getLoadedStyleLinks(): Record<string, HTMLLinkElement[]> {
-    return componentManager.getLoadedStyleLinks();
+function getLoadedStyles(name:string):  HTMLLinkElement[] {
+    return styleManager.getLoadedStyles(name) ;
+}
+
+/**
+ * 卸载所有样式
+ */
+function unloadAllStyles(): void {
+    styleManager.unloadAllStyles();
 }
 
 class ComponentLoader {
@@ -87,10 +97,10 @@ class ComponentLoader {
 
 /**
  * 定义异步组件订单时间
- * @param {*} delay 
+ * @param delay 等待时间
  * @returns 
  */
-function asyncComponentDelay(delay = 500) {
+function asyncComponentDelay(delay:number = 500) {
     return defineAsyncComponent({
         loader: () => {
             return new Promise(async (resolve, reject) => {
@@ -181,9 +191,10 @@ export {
     // 方法
     nameIsUseAsyncComponent,
     getComponentOption,
-    // 样式管理
-    loadPackageStyles,
-    unloadPackageStyles,
-    unloadComponentStyles,
-    getLoadedStyleLinks,
+    // 新的样式管理方法
+    loadStyle,
+    unloadStyle,
+    isStyleLoaded,
+    getLoadedStyles,
+    unloadAllStyles,
 }

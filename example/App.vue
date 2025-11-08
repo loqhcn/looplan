@@ -1,7 +1,7 @@
 <template>
   <div class="m-page fullview padding">
     <div class="m-layout x-full auto-center">
-      <m-tabs v-model="state.activeTab" :data="state.tabs" type="card" @change="onTab"></m-tabs>
+      <lp-tabs v-model="state.activeTab" :data="state.tabs" type="card" @change="onTab"></lp-tabs>
     </div>
     <div class="content pt">
       <RouterView></RouterView>

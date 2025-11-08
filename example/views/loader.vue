@@ -24,7 +24,7 @@
             <Suspense>
                 <div>
                     <!-- 写一个delay做渲染优化 -->
-                    <component :is="asyncComponentDelay(1000)"></component>
+                    <component :is="asyncComponentDelay(200)"></component>
                     <!-- 渲染内容 -->
                     <div class="padding-y">
                         <lp-component is="ElementPlus@ElButton" type="primary">ElementPlus按钮</lp-component>
@@ -57,12 +57,12 @@
             <div class="module-title">使用vue.component</div>
             <div class="padding-y">
                 <div>loadComponent</div>
-                <lp-component is="mm@Test2"></lp-component>
-                <component :is="loadComponent('mm@Test2')"></component>
+                <lp-component is="test@Test2"></lp-component>
+                <component :is="loadComponent('test@Test2')"></component>
             </div>
 
             <!-- 样式管理测试 -->
-            <div class="module-title">样式管理测试</div>
+            <!-- <div class="module-title">样式管理测试</div>
             <div class="padding-y">
                 <el-button type="primary" @click="toggleElementStyles">
                     {{ elementStylesLoaded ? '卸载ElementPlus样式' : '加载ElementPlus样式' }}
@@ -78,13 +78,24 @@
                         </li>
                     </ul>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </template>
 <script setup lang="ts">
 import { ref, reactive, onMounted } from 'vue';
-import { setComponentPackage, registerPackage, loadComponent, asyncComponentDelay, loadPackageStyles, unloadPackageStyles, unloadComponentStyles, getLoadedStyleLinks } from '@/loader/component';
+import {
+    setComponentPackage,
+    loadComponent,
+    asyncComponentDelay,
+    registerPackage,
+    loadStyle,
+    unloadStyle,
+    isStyleLoaded,
+    getLoadedStyles,
+    unloadAllStyles
+} from '@/loader/component';
+
 import testPkg from './test_pkg/index.ts'
 
 const state = reactive({
@@ -102,39 +113,6 @@ const tableData = ref([
 const elementStylesLoaded = ref(true); // 默认已加载
 const buttonStylesLoaded = ref(true); // 默认已加载
 const styleLinks = ref<string[]>([]);
-
-// 切换ElementPlus样式
-const toggleElementStyles = async () => {
-    if (elementStylesLoaded.value) {
-        unloadPackageStyles('ElementPlus');
-        elementStylesLoaded.value = false;
-    } else {
-        await loadPackageStyles('ElementPlus');
-        elementStylesLoaded.value = true;
-    }
-    updateStyleLinks();
-}
-
-// 切换按钮样式
-const toggleButtonStyles = () => {
-    if (buttonStylesLoaded.value) {
-        unloadComponentStyles('ElementPlus@ElButton');
-        buttonStylesLoaded.value = false;
-    } else {
-        // 注意：这个组件样式是在使用时加载的，需要重新渲染组件来加载样式
-        // 这里我们只更新状态，实际场景中可能需要强制重新渲染组件
-        buttonStylesLoaded.value = true;
-    }
-    updateStyleLinks();
-}
-
-// 更新样式链接列表
-const updateStyleLinks = () => {
-    const links = getLoadedStyleLinks();
-    styleLinks.value = Object.entries(links).map(([key, linkElements]) => 
-        `${key}: ${linkElements.length}个样式文件`
-    );
-}
 
 // 设置本地组件库
 setComponentPackage(testPkg)
@@ -183,9 +161,8 @@ onMounted(() => {
     setTimeout(() => {
         state.delayShow = true
     }, 1000)
-    
-    // 初始化样式链接列表
-    updateStyleLinks();
+
+  
 })
 
 </script>
@@ -208,7 +185,7 @@ onMounted(() => {
     ul {
         margin: 0;
         padding-left: 20px;
-        
+
         li {
             margin: 5px 0;
         }

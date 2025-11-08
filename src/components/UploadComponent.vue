@@ -8,6 +8,10 @@ import { ref,reactive,onMounted } from 'vue';
 const state = reactive({
 
 })
+
+onMounted(() => {
+    console.log('UploadComponent mounted');
+})
 </script>
 <script lang="ts">
 export default {

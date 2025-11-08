@@ -1,22 +1,39 @@
 import asyncLoading from "./loading/asyncLoading.vue";
 import asyncError from "./loading/asyncError.vue";
-import type { ComponentPackageConfig } from "./lib/ComponentManager";
-interface ComponentLoaderOptions {
-    package: string;
-    isCache: boolean;
-}
-interface ComponentPackageData {
-    packageConfig: ComponentPackageConfig;
-    [key: string]: any;
-}
+import type { ComponentPackageConfig, ComponentLoaderOptions, ComponentOption } from "@/types/component";
 /**
  * 通过名称判断是否使用异步组件
  * @param {*} name 组件包名称
  */
 declare function nameIsUseAsyncComponent(name: string): false | RegExpMatchArray | null;
-declare function setComponentPackage(packageData: ComponentPackageData): void;
+declare function setComponentPackage(packageData: any): void;
 /** 注册组件包信息 */
 declare function registerPackage(packageConfig: ComponentPackageConfig): void;
+/**
+ * 加载样式（支持包级别和组件级别）
+ * @param name 样式名称，格式：包名 或 包名@组件名
+ * @param styleCdn 样式CDN链接数组（可选，如果不提供则从配置中获取）
+ * @param version 版本号（可选）
+ */
+declare function loadStyle(name: string, styleCdn?: string[], version?: string): Promise<void>;
+/**
+ * 卸载样式（支持包级别和组件级别）
+ * @param name 样式名称，格式：包名 或 包名@组件名
+ */
+declare function unloadStyle(name: string): void;
+/**
+ * 检查样式是否已加载
+ * @param name 样式名称
+ */
+declare function isStyleLoaded(name: string): boolean;
+/**
+ * 获取所有已加载的样式
+ */
+declare function getLoadedStyles(name: string): HTMLLinkElement[];
+/**
+ * 卸载所有样式
+ */
+declare function unloadAllStyles(): void;
 declare class ComponentLoader {
     options: ComponentLoaderOptions;
     constructor();
@@ -26,7 +43,7 @@ declare class ComponentLoader {
 }
 /**
  * 定义异步组件订单时间
- * @param {*} delay
+ * @param delay 等待时间
  * @returns
  */
 declare function asyncComponentDelay(delay?: number): {
@@ -38,7 +55,7 @@ declare function asyncComponentDelay(delay?: number): {
  * @param {*} name
  * @returns
  */
-declare function getComponentOption(name: string): import("./lib/ComponentManager").ComponentOption | undefined;
+declare function getComponentOption(name: string): ComponentOption | undefined;
 /**
  * 加载组件
  * @param {string} name - 组件名称
@@ -50,4 +67,4 @@ declare function getComponentOption(name: string): import("./lib/ComponentManage
 declare function loadComponent(name: string, options?: {}): {
     default: never;
 };
-export { setComponentPackage, registerPackage, ComponentLoader, asyncLoading, asyncError, loadComponent, asyncComponentDelay, nameIsUseAsyncComponent, getComponentOption, };
+export { setComponentPackage, registerPackage, ComponentLoader, asyncLoading, asyncError, loadComponent, asyncComponentDelay, nameIsUseAsyncComponent, getComponentOption, loadStyle, unloadStyle, isStyleLoaded, getLoadedStyles, unloadAllStyles, };

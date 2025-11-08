@@ -1,4 +1,4 @@
-import { isEmpty } from 'lodash';
+import { isEmpty } from 'lodash-es';
 
 /**
  * 注册全局组件到 Vue 应用实例

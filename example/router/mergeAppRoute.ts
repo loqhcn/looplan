@@ -1,4 +1,4 @@
-import { isEmpty, isArray } from 'lodash';
+import { isEmpty, isArray } from 'lodash-es';
 
 
 let appRoutes: any[] = [];

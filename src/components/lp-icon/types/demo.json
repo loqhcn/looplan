@@ -1,0 +1,24 @@
+{
+    "code": 200,
+    "msg": "获取成功",
+    "data": {
+        "row": {
+            "name": "LooplanMain",
+            "title": "Looplan主图库",
+            "type": "iconfont",
+            "data": {
+                "woff": "//at.alicdn.com/t/c/font_5023527_zm5td5w40ac.woff?t=1758056482880",
+                "woff2": "//at.alicdn.com/t/c/font_5023527_zm5td5w40ac.woff2?t=1758056482880",
+                "truetype": "//at.alicdn.com/t/c/font_5023527_zm5td5w40ac.ttf?t=1758056482880"
+            },
+            "icons": {
+                "up": "e958",
+                "add": "e8e5",
+                "all": "e96a",
+                "atm": "e8ea"  
+            },
+            "version": "1.0.0"
+        }
+    },
+    "time": "2025/9/17 06:48:56"
+}

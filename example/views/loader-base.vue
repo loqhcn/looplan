@@ -7,10 +7,8 @@
             <div class="text-json">
                 <pre>{{ state }}</pre>
             </div>
-            <lp-component is="mm@Test1" v-model="state.name" v-model:age="state.age"></lp-component>
-
-            <lp-component v-if="state.delayShow" is="mm@Test2" v-model="state.name" v-model:age="state.age"></lp-component>
-
+            <lp-component is="test@Test1" v-model="state.name" v-model:age="state.age"></lp-component>
+            <lp-component v-if="state.delayShow" is="test@Test2" v-model="state.name" v-model:age="state.age"></lp-component>
         </div>
 
         <div class="m-panel">
@@ -18,8 +16,8 @@
             <div class="module-title">使用vue.component</div>
             <div class="padding-y">
                 <div>loadComponent</div>
-                <lp-component is="mm@Test1"></lp-component>
-                <component :is="loadComponent('mm@Test2')"></component>
+                <lp-component is="test@Test1"></lp-component>
+                <component :is="loadComponent('test@Test2')"></component>
             </div>
         </div>
     </div>

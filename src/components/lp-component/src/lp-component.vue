@@ -65,7 +65,7 @@ function onRetry() {
 
 // 捕获组件内部的错误
 onErrorCaptured((err, instance, info) => {
-    console.log('onErrorCaptured', err, instance, info);
+    // console.log('onErrorCaptured', err, instance, info);
     // 返回 false 阻止默认的错误处理
     return false;
 });
@@ -74,9 +74,8 @@ onErrorCaptured((err, instance, info) => {
 const $attrs = useAttrs();
 // 获取所有插槽
 const $slots = useSlots()
-console.log('$slots', $slots);
-console.log('$attrs', $attrs);
-
+// console.log('$slots', $slots);
+// console.log('$attrs', $attrs);
 
 
 // 过滤非事件属性
@@ -118,8 +117,8 @@ const modelListeners = computed(() => {
     return listeners
 })
 
-console.log('filteredAttrs', filteredAttrs.value);
-console.log('formattedListeners', formattedListeners.value);
+// console.log('filteredAttrs', filteredAttrs.value);
+// console.log('formattedListeners', formattedListeners.value);
 
 </script>
 <script lang="ts">

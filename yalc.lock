@@ -1,0 +1,10 @@
+{
+  "version": "v1",
+  "packages": {
+    "looplan-ui": {
+      "signature": "9e25fdedefb89f86f75fb917176fcccc",
+      "file": true,
+      "replaced": "^1.0.1"
+    }
+  }
+}

@@ -1,16 +1,16 @@
 <template>
-    <div class="m-layout">
-        <button @click="onTest1">测试1</button>
-    </div>
+  <div class="m-layout">
+    <button @click="onTest1">测试1</button>
+  </div>
 </template>
 <script setup>
-import { ref,reactive,onMounted } from 'vue';
-import { UploadComponent, createApi } from '@/index'
+import { ref, reactive, onMounted } from 'vue';
+import { createApi } from '@/index'
 
 const api = createApi({
   baseURL: 'http://content.lqh.cn',
   timeout: 10000,
-  baseInterceptors:true
+  baseInterceptors: true
 });
 
 
@@ -23,8 +23,7 @@ const onTest1 = () => {
 </script>
 <script>
 export default {
-    title:'http测试'
+  title: 'http测试'
 }
 </script>
-<style lang="scss">
-</style>
+<style lang="scss"></style>

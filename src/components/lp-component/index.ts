@@ -8,4 +8,7 @@ let component = {
     }
 }
 
+export {
+    LpComponent,
+}
 export default component;
