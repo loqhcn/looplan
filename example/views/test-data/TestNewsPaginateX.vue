@@ -41,7 +41,7 @@ const dataSpace = new ModelSpace({
     provideToken: () => localStorage.getItem('token') || '',
 });
 
-const newsModel = dataSpace.useModel('test_dev/sl_test_news'); // dataSpace 新闻模型
+const newsModel = dataSpace.useModel('test/sl_test_news'); // dataSpace 新闻模型
 
 
 
@@ -54,8 +54,17 @@ const state = reactive({
 const loadNews = async (reset = false) => {
     if (reset) {
         state['list'] = [];
-        state['pageStatus'] = {} as PaginateXPageStatus;
+        state['pageStatus'] = {
+            hasMore: true,
+        } as PaginateXPageStatus;
         state['lastIndex'] = 0;
+    }
+
+    if(!state.pageStatus.hasMore) {
+        LpLayer.toast('没有更多数据了',{
+            duration: 1000,
+        });
+        return;
     }
 
     // const news = await newsModel.getList();

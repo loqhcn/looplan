@@ -1,3 +1,23 @@
+interface ApiResult<T = any> {
+    error: ApiError | null,
+    /**
+     * 原始数据
+     */
+    result: T,
+}
+
+interface ApiError {
+    /**
+     * 状态码
+     * - 200:成功
+     */
+    code: number,
+    /**
+     * 提示信息
+     */
+    msg: string,
+}
+
 interface PaginatePageStatus {
     /**
      * 当前页
@@ -60,25 +80,33 @@ interface PaginateXPageStatus {
     lastIndex: number;
 }
 
+// rowApiResult
+interface RowApiResult<T = any> {
+    /**
+     * 错误信息
+     */
+    error: ApiError | null,
+    /**
+     * 原始数据
+     */
+    result: any,
+    /**
+     * 行数据
+     */
+    row: T,
+}
+
 // TODO -- PaginateXApiResult
 
 /**
  * 大数据分页查询结果
  */
 interface PaginateXApiResult<T> {
+    error: ApiError | null,
     /**
-     * 状态码
-     * - 200:成功
+     * 原始数据
      */
-    code: number,
-    /**
-     * 提示信息
-     */
-    msg: string,
-    /**
-     * 数据
-     */
-    data: any,
+    result: any,
     /**
      * 列表数据
      */
@@ -98,19 +126,11 @@ interface PaginateXApiResult<T> {
  * 分页查询结果
  */
 interface PaginateApiResult<T> {
+    error: ApiError | null,
     /**
-     * 状态码
-     * - 200:成功
+     * 原始数据
      */
-    code: number,
-    /**
-     * 提示信息
-     */
-    msg: string,
-    /**
-     * 数据
-     */
-    data: any,
+    result: any,
     /**
      * 列表数据
      */
@@ -127,19 +147,11 @@ interface PaginateApiResult<T> {
  * 列表查询结果
  */
 interface listApiResult<T> {
-    /**
-     * 状态码
-     * - 200:成功
-     */
-    code: number,
-    /**
-     * 提示信息
-     */
-    msg: string,
+    error: ApiError | null,
     /**
      * 数据
      */
-    data: any,
+    result: any,
     /**
      * 列表数据
      */
@@ -147,11 +159,46 @@ interface listApiResult<T> {
 }
 
 
+type IdArr = number[] | string[];
+
+
+type FilterOptionValue = [string, any];
+/**
+ * 过滤选项
+ */
+type FilterValue = string | number | FilterOptionValue[];
+
+/**
+ * 过滤选项
+ * @example
+ * {
+ *     name: '张三',
+ *     age: 18,
+ *     sex: ['=', '男'],
+ *     createTime: ['between', ['2023-01-01', '2023-01-31']],
+ *     status: ['in', [1, 2, 3]],
+ * }
+ */
+interface FilterOption {
+    [key: string]: FilterValue,
+}
+
+
 
 export type {
+    IdArr,
+    FilterOption,
+    FilterValue,
+    FilterOptionValue,
+
+    ApiError,
+    ApiResult,
+
+    RowApiResult,
+    
     ListSortType,
     listApiResult,
-    
+
     PaginateApiResult,
     PaginatePageStatus,
 

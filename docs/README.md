@@ -4,6 +4,24 @@
 
 # 菜单
 
-## 测试1
-- [测试1](./test1.md)
-- [测试2](./test2.md)
+## 安装
+- [安装](./init.md)
+
+## 云组件
+
+- [云组件使用](./component.md)
+
+## 云图标
+
+- [云图标使用](./icon.md)
+
+## API客户端
+
+- 提供访问`looplan-server`的api客户端
+
+- [ModelSpace](./api.md)
+
+
+## SDK  
+
+- [SDK](./sdk.md)

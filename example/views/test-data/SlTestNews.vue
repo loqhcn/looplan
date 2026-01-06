@@ -79,9 +79,9 @@ const dataSpace_provider = new ModelSpace({
     provideToken: () => localStorage.getItem('token_provider') || '',
 });
 
-const newsModel = dataSpace.useModel('test_dev/sl_test_news'); // dataSpace 新闻模型
-const newsModel_user = dataSpace_user.useModel('test_dev/sl_test_news'); // dataSpace_user 用户新闻模型
-const newsModel_provider = dataSpace_provider.useModel('test_dev/sl_test_news'); // dataSpace_provider 服务提供方新闻模型
+const newsModel = dataSpace.useModel('test/sl_test_news'); // dataSpace 新闻模型
+const newsModel_user = dataSpace_user.useModel('test/sl_test_news'); // dataSpace_user 用户新闻模型
+const newsModel_provider = dataSpace_provider.useModel('test/sl_test_news'); // dataSpace_provider 服务提供方新闻模型
 
 const models: Record<string, any> = {
     newsModel,

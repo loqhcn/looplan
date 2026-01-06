@@ -1,5 +1,62 @@
-
 {
-    "title": "文档标题",
-    "description": "文档描述"
+    "name": "looplan",
+    "version": "1.3.15",
+    "title": "Looplan",
+    "description": "开发或使用云组件",
+    // 代码块语言配置
+    "codeLang": {
+        // 开启vue预览(需要限制语法: 只能使用js和选项式vue组件,不支持setup和ts)
+        "vuePreview": false,
+        // 开启html预览
+        "htmlPreview": false
+    },
+    "home": {
+        "component": "default", //default使用默认组件, 如果使用自定义组件,则使用looplan加载, 例如 `PkgName@HomePage`
+        "props": {
+            "title": "Looplan",
+            "desc": "开发或使用云组件",
+            "hero": {
+                "background": "linear-gradient(135deg, #6b73ff 0%, #4f57ff 100%)",
+                "buttonText": "快速上手",
+                "showGithubButton": true
+            },
+            "features": {
+                "show": true,
+                "title": "主要特性",
+                "items": [
+                    {
+                        "icon": "📚",
+                        "title": "完整文档",
+                        "description": "提供详尽的文档说明和代码示例"
+                    },
+                    {
+                        "icon": "🚀",
+                        "title": "快速上手",
+                        "description": "简单易用的API，轻松集成到您的项目中"
+                    },
+                    {
+                        "icon": "⚙️",
+                        "title": "高度可定制",
+                        "description": "灵活的配置选项，满足各种需求"
+                    }
+                ]
+            },
+            "additionalSections": [],
+            "header": {
+                "links": [
+                    // {
+                    //     "title": "GitHub",
+                    //     "url": "https://github.com/loqhcn/looplan-doc"
+                    // }
+                ]
+            },
+            "footer": {
+                "content": "Copyright © 2024 looplan",
+                "icp": {
+                    "title": "渝ICP备18017266号-1",
+                    "url": "https://beian.miit.gov.cn/"
+                }
+            }
+        }
+    }
 }

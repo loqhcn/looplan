@@ -1,6 +1,7 @@
 <template>
 
-    <component v-if="is" :is="AsyncComponent" v-bind="filteredAttrs" v-on="formattedListeners">
+    <component v-if="is" :is="AsyncComponent" :key="renderKey" ref="innerRef" v-bind="filteredAttrs"
+        v-on="formattedListeners">
         <!-- 透传默认插槽 -->
         <template v-for="(_, name) in $slots" :key="name" v-slot:[name]="slotProps">
             <slot :name="name" v-bind="slotProps || {}" />
@@ -13,14 +14,12 @@
 
 </template>
 <script setup lang="ts">
-import { ref, reactive, onMounted, watch, onErrorCaptured, useAttrs, computed, useSlots } from 'vue';
-import { setComponentPackage, loadComponent, asyncComponentDelay, asyncLoading, asyncError } from '@/loader/component';
-
-
+import { ref, reactive, onMounted, watch, onErrorCaptured, useAttrs, computed, useSlots, markRaw } from 'vue';
+import { setComponentPackage, loadComponent, asyncComponentDelay, asyncLoading, asyncError, nameIsUseAsyncComponent } from '@/loader/component';
 
 const props = defineProps({
     is: {
-        type: String,
+        type: [String, Object, Function] as any,
         default: ''
     }
 })
@@ -29,31 +28,50 @@ const isError = ref<boolean>(false);
 const errorMessage = ref<string>('');
 let retryMethod: any = null;
 
-const AsyncComponent = loadComponent(props.is, {
-    // //loading 延迟时间
-    // delay: 200,
-    // // 超时时间
-    // timeout: 3000,
-    loadingComponent: asyncLoading,
-    errorComponent: function (props: any) {
-        // 必须定义errorComponent, 否则loadingComponent会一直显示
-        return '';
-    },
-    onError: (error: any, retry: any, fail: any, attempts: any) => {
-        console.error('onError', attempts);
-        retryMethod = retry;
-        isError.value = true;
-        // 设置错误信息
-        errorMessage.value = `组件加载失败: ${error.message}`;
-        fail();
-    }
-})
+const innerRef = ref<any>(null);
+const renderKey = ref<number>(0);
+const AsyncComponent = ref<any>(null);
 
-watch(() => props.is, (newVal, oldVal) => {
+watch(() => props.is as any, (newVal, oldVal) => {
     if (newVal !== oldVal) {
-
+        renderKey.value++
     }
-})
+    innerRef.value = null
+    isError.value = false
+    errorMessage.value = ''
+    retryMethod = null
+    if (!newVal) {
+        AsyncComponent.value = null
+        return
+    }
+
+    if (typeof newVal === 'string' && nameIsUseAsyncComponent(newVal)) {
+
+        loadComponentInstance(newVal)
+    } else {
+        AsyncComponent.value = markRaw(newVal as any)
+    }
+}, { immediate: true })
+
+/**
+ * 加载异步组件实例
+ * @param newVal 组件名称
+ */
+function loadComponentInstance(newVal: string) {
+    AsyncComponent.value = markRaw(loadComponent(newVal, {
+        loadingComponent: asyncLoading,
+        errorComponent: function (props: any) {
+            return '';
+        },
+        onError: (error: any, retry: any, fail: any, attempts: any) => {
+            console.error('onError', attempts);
+            retryMethod = retry;
+            isError.value = true;
+            errorMessage.value = `组件加载失败: ${error.message}`;
+            fail();
+        }
+    }))
+}
 
 // 重试
 function onRetry() {
@@ -119,6 +137,26 @@ const modelListeners = computed(() => {
 
 // console.log('filteredAttrs', filteredAttrs.value);
 // console.log('formattedListeners', formattedListeners.value);
+
+const exposedProxy: any = new Proxy({}, {
+    get(_target, key) {
+        const inst = innerRef.value;
+        return inst?.[key as any];
+    },
+    set(_target, key, value) {
+        const inst = innerRef.value;
+        if (inst) {
+            (inst as any)[key as any] = value;
+            return true;
+        }
+        return false;
+    },
+    has(_target, key) {
+        const inst = innerRef.value;
+        return inst ? (key in (inst as any)) : false;
+    }
+});
+defineExpose(exposedProxy);
 
 </script>
 <script lang="ts">

@@ -148,6 +148,7 @@ function loadComponent(name:string, options = {}) {
         // 定义组件加载时显示的加载组件
         loadingComponent: asyncLoading,
     }, options);
+
     // 返回一个异步组件
     return defineAsyncComponent({
         // 异步加载组件的函数

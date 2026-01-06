@@ -1,5 +1,5 @@
 import { registerLooplanComponents } from './components';
-import { JsDataType } from './lib/data-type';
+import { JsDataType, typeDefaultValue } from './lib/data-type';
 import { resolveComponent } from './lib/component';
 import { createApi } from './api';
 import type { App } from 'vue';
@@ -26,6 +26,7 @@ import { LpIcon, LpSvg } from './components/lp-icon';
 import { LooplanException } from './exception/LooplanException';
 import ModelClient from './loader/data/ModelClient';
 import ModelSpace from './loader/data/ModelSpace';
+import { modelSpaceMap, useModelSpace } from './loader/data/index';
 
 function install(app: App) {
     registerLooplanComponents(app);
@@ -35,8 +36,18 @@ function install(app: App) {
 // 导入并导出其他需要暴露的类型和模块
 export type { ComponentOption, LoadedModule, ComponentPackageConfig } from '@/types/component';
 export type { GatewayOption } from '@/types/index';
-export type { IconPackageConfig } from '@/components/lp-icon/types/index';
 export type {
+    IconPackageConfig, 
+    IconGatewayOption
+} from '@/components/lp-icon/types/index';
+
+export type {
+    IdArr,
+    FilterOption,
+    FilterValue,
+    FilterOptionValue,
+    ApiError,
+    ApiResult,
     // 列表查询
     ListSortType,
     listApiResult,
@@ -48,6 +59,7 @@ export type {
     PaginateXApiResult,
     PaginateXPageStatus,
 } from '@/types/model-client';
+
 
 //按需引入
 export {
@@ -61,6 +73,7 @@ export {
     // JS方法
     createApi,
     JsDataType,
+    typeDefaultValue,
     // 云组件方法
     registerLooplanComponents,
     setComponentPackage,
@@ -69,6 +82,7 @@ export {
     asyncComponentDelay,
     nameIsUseAsyncComponent,
     getComponentOption,
+    resolveComponent,
     // 样式管理方法
     loadStyle,
     unloadStyle,
@@ -89,12 +103,13 @@ export {
     iconGatewayOptions,
     setIconGateway,
     getIconPackage,
-    // 组件工具方法
-    resolveComponent,
+
 
     // 数据模型
     ModelSpace,
     ModelClient,
+    modelSpaceMap,
+    useModelSpace,
 };
 
 export default { install };

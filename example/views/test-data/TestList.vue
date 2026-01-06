@@ -32,7 +32,7 @@ const coreSpace = new ModelSpace({
     // provideToken: () => localStorage.getItem('token_user')  || '',
 });
 
-const newsModel = coreSpace.useModel('test_dev/sl_test_news');
+const newsModel = coreSpace.useModel('test/sl_test_news');
 const newsListRef = ref<typeof lpList>();
 
 const editNews = (item: any) => {

@@ -13,10 +13,18 @@ import SlTestNews from './test-data/SlTestNews.vue';
 import TestList from './test-data/TestList.vue';
 import TestNewsPaginate from './test-data/TestNewsPaginate.vue';
 import TestNewsPaginateX from './test-data/TestNewsPaginateX.vue';
+import TestSaveOptions from './test-data/TestSaveOptions.vue';
+
+
 
 const state = reactive({
-    activeTabIndex: 1,
+    activeTabIndex: 0,
     list: [
+        {
+            name: 'TestSaveOptions',
+            title: '测试保存选项',
+            component: markRaw(TestSaveOptions)
+        },
         {
             name: 'TestNewsPaginate',
             title: '测试新闻分页',

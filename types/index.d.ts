@@ -12,12 +12,13 @@ import { LpIcon, LpSvg } from './components/lp-icon';
 import { LooplanException } from './exception/LooplanException';
 import ModelClient from './loader/data/ModelClient';
 import ModelSpace from './loader/data/ModelSpace';
+import { modelSpaceMap, useModelSpace } from './loader/data/index';
 declare function install(app: App): void;
 export type { ComponentOption, LoadedModule, ComponentPackageConfig } from '@/types/component';
 export type { GatewayOption } from '@/types/index';
 export type { IconPackageConfig } from '@/components/lp-icon/types/index';
-export type { ListSortType, listApiResult, PaginateApiResult, PaginatePageStatus, PaginateXOptions, PaginateXApiResult, PaginateXPageStatus, } from '@/types/model-client';
-export { LooplanException, install, LpComponent, LpIcon, LpSvg, createApi, JsDataType, registerLooplanComponents, setComponentPackage, registerPackage, loadComponent, asyncComponentDelay, nameIsUseAsyncComponent, getComponentOption, loadStyle, unloadStyle, isStyleLoaded, getLoadedStyles, unloadAllStyles, gatewayOptions, setGateway, getComponentPackage, loadIcon, setIconPackage, IconPackages, mountIconfont, unmountIconfont, iconGatewayOptions, setIconGateway, getIconPackage, resolveComponent, ModelSpace, ModelClient, };
+export type { IdArr, FilterOption, FilterValue, FilterOptionValue, ApiError, ApiResult, ListSortType, listApiResult, PaginateApiResult, PaginatePageStatus, PaginateXOptions, PaginateXApiResult, PaginateXPageStatus, } from '@/types/model-client';
+export { LooplanException, install, LpComponent, LpIcon, LpSvg, createApi, JsDataType, registerLooplanComponents, setComponentPackage, registerPackage, loadComponent, asyncComponentDelay, nameIsUseAsyncComponent, getComponentOption, loadStyle, unloadStyle, isStyleLoaded, getLoadedStyles, unloadAllStyles, gatewayOptions, setGateway, getComponentPackage, loadIcon, setIconPackage, IconPackages, mountIconfont, unmountIconfont, iconGatewayOptions, setIconGateway, getIconPackage, resolveComponent, ModelSpace, ModelClient, modelSpaceMap, useModelSpace, };
 declare const _default: {
     install: typeof install;
 };

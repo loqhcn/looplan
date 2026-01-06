@@ -9,6 +9,10 @@ interface ModelSpaceOptions {
      * 提供token的函数
      */
     provideToken?: () => string;
+    /**
+     * 请求拦截器
+     */
+    requestInterceptors?: (config: any) => any;
 }
 
 class ModelSpace {
@@ -36,7 +40,6 @@ class ModelSpace {
             * @returns 返回配置
             */
             requestInterceptors: (config: any) => {
-                console.log(config)
                 if (!config.headers['Content-Type']) {
                     config.headers['Content-Type'] = 'application/json';
                 }
@@ -44,6 +47,8 @@ class ModelSpace {
                 const token = this.options.provideToken?.() || ''
                 const tokenField = this.options.tokenField || 'Authorization';
                 token && (config.headers[tokenField] = token);
+                // 调用请求拦截器
+                this.options.requestInterceptors?.(config);
                 return config
             },
             /**
@@ -52,7 +57,6 @@ class ModelSpace {
              * @returns 返回数据
              */
             responseInterceptors: (response: any) => {
-                console.log(response)
                 return response.data
             }
         });
@@ -111,7 +115,6 @@ class ModelSpace {
     async callCloudObject(objectName: string, methodName: string, params: any) {
         const endpoint = `${objectName}.${methodName}`;
         try {
-            console.log(`调用云对象: ${endpoint}`, params);
             const response = await this.instance.post(`/${endpoint}`, params);
             return response;
         } catch (error: any) {
@@ -126,7 +129,6 @@ class ModelSpace {
      */
     async callCloudFunction(name: string, params: any) {
         try {
-            console.log(`调用云函数: ${name}`, params);
             const response = await this.instance.post(`/${name}`, params);
             return response;
         } catch (error: any) {

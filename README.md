@@ -1,11 +1,14 @@
 \[中文文档\] | \[[English](./docs/engish/README.md)\]
 # Looplan
 
+[查看文档 Documentation](http://doc.looplan.cn/looplan)
+
 vue3云组件库开发, 目的是用于开发和使用云组件,并封装常用JS库提供快速开发
 - 当前处于开发阶段, 不建议在生产环境使用
 - 技术讨论QQ群: 1047604746 
 
 # 更新记录
+- 2026-1-6  整理文档站点
 - 2025-11-1 开始集成`looplan-serverless`云函数功能,新增`ModelSpace`对象 [ModelSpace](#modelspace) 
 - 2025-9-17 新增`lp-icon`组件,iconfont加载,网关加载
 - 2025-9-13 云组件新增网关加载方式
@@ -347,31 +350,31 @@ const modelSpace = new ModelSpace({
 });
 
 // dataSpace 新闻模型
-const newsModel = modelSpace.useModel('test_dev/sl_test_news'); 
+const newsModel = modelSpace.useModel('test/sl_test_news'); 
 // 新增新闻
 newsModel.save({
   title:'测试新闻',
-}); //访问`BaseUrl/test_dev/sl_test_news.save`
+}); //访问`BaseUrl/test/sl_test_news.save`
 // 修改新闻
 let id = 1;
 newsModel.save({
   title:'测试新闻修改',
-},id); //访问`BaseUrl/test_dev/sl_test_news.update`
+},id); //访问`BaseUrl/test/sl_test_news.update`
 // 查询新闻详情
-newsModel.row(1); //访问`BaseUrl/test_dev/sl_test_news.row`
+newsModel.row(1); //访问`BaseUrl/test/sl_test_news.row`
 // 查询新闻列表
 newsModel.list(page,psize); 
 // 分页查询
 let page = 1;
 let psize = 10;
-newsModel.paginate(page,psize); //访问`BaseUrl/test_dev/sl_test_news.paginate`
+newsModel.paginate(page,psize); //访问`BaseUrl/test/sl_test_news.paginate`
 // 大数据分页
 let lastIndex = 0;
 newsModel.paginateX(lastIndex,{
     "limit": 10,
     "orderType": "ASC",
     "orderField": "id"
-}); //访问`BaseUrl/test_dev/sl_test_news.paginateX`
+}); //访问`BaseUrl/test/sl_test_news.paginateX`
 ```
 ### 云函数调用
 ```ts

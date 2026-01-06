@@ -16,14 +16,14 @@
             <div class="module-title">使用vue.component</div>
             <div class="padding-y">
                 <div>loadComponent</div>
-                <lp-component is="test@Test1"></lp-component>
-                <component :is="loadComponent('test@Test2')"></component>
+                <lp-component is="test@Test1" v-model="state.name" v-model:age="state.age"></lp-component>
+                <component :is="asyncTest2"></component>
             </div>
         </div>
     </div>
 </template>
 <script setup lang="ts">
-import { ref, reactive, onMounted } from 'vue';
+import { ref, reactive, onMounted, markRaw } from 'vue';
 import { setComponentPackage, registerPackage, loadComponent, asyncComponentDelay } from '@/loader/component';
 import testPkg from './test_pkg/index.ts'
 
@@ -36,6 +36,8 @@ const state = reactive({
 
 // 设置本地组件库
 setComponentPackage(testPkg)
+
+const asyncTest2 = markRaw(loadComponent('test@Test2'))
 
 onMounted(() => {
     setTimeout(() => {

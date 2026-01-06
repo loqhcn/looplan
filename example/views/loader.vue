@@ -56,9 +56,38 @@
 
             <div class="module-title">使用vue.component</div>
             <div class="padding-y">
+                <div>lp-component</div>
+                <lp-component ref="test2Ref" is="test@Test2"></lp-component>
+                <div class="handles flex">
+                    <lp-button type="primary" @click="handleTest2">调用test2</lp-button>
+                </div>
                 <div>loadComponent</div>
-                <lp-component is="test@Test2"></lp-component>
                 <component :is="loadComponent('test@Test2')"></component>
+            </div>
+
+            <div class="module-title">Is 切换测试</div>
+            <div class="padding-y">
+                <div class="toggle-row">
+                    <div class="toggle-info">当前组件: {{ toggleIs }}</div>
+                    <lp-button type="primary" @click="handleToggleIs">切换 Test1/Test2</lp-button>
+                </div>
+                <div class="toggle-panels">
+                    <div class="panel">
+                        <div class="sub-title">lp-component</div>
+                        <lp-component :is="toggleIs" ref="toggleRef"></lp-component>
+                    </div>
+                    <div class="panel">
+                        <div class="sub-title">原生 component</div>
+                        <component :is="loadComponent(toggleIs)"></component>
+                    </div>
+                </div>
+            </div>
+
+            <div class="module-title">列表渲染测试</div>
+            <div class="padding-y">
+                <div class="list-panels">
+                    <lp-component v-for="item in listItems"  is="test@Test2" :key="item.id"></lp-component>
+                </div>
             </div>
 
             <!-- 样式管理测试 -->
@@ -157,12 +186,35 @@ registerPackage({
     ],
 })
 
+const test2Ref = ref<any>(null);
+
+function handleTest2() {
+    if (test2Ref.value) {
+        test2Ref.value.test2();
+    }
+}
+
+const toggleIs = ref<string>('test@Test1');
+const toggleRef = ref<any>(null);
+function handleToggleIs() {
+    toggleIs.value = toggleIs.value.includes('Test1') ? 'test@Test2' : 'test@Test1';
+}
+
+const listItems = ref<Array<{ id: number; is: string }>>([
+    { id: 1, is: 'test@Test1' },
+    { id: 2, is: 'test@Test2' },
+    { id: 3, is: 'test@Test1' },
+]);
+function toggleItemIs(item: { id: number; is: string }) {
+    item.is = item.is.includes('Test1') ? 'test@Test2' : 'test@Test1';
+}
+
 onMounted(() => {
     setTimeout(() => {
         state.delayShow = true
     }, 1000)
 
-  
+
 })
 
 </script>
@@ -173,6 +225,13 @@ onMounted(() => {
     font-weight: bold;
     color: #333;
     margin-top: 20px;
+}
+
+.sub-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 8px;
 }
 
 .style-info {
@@ -190,5 +249,48 @@ onMounted(() => {
             margin: 5px 0;
         }
     }
+}
+
+.m-panel {
+    background: #fff;
+    border: 1px solid #ebedf0;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.toggle-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.toggle-info {
+    padding: 6px 10px;
+    background: #f5f7fa;
+    border: 1px solid #eaecef;
+    border-radius: 6px;
+    font-size: 13px;
+    color: #666;
+}
+
+.toggle-panels {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 12px;
+}
+
+.panel {
+    border: 1px dashed #e0e3e7;
+    border-radius: 8px;
+    padding: 12px;
+}
+
+.list-panels {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
 }
 </style>

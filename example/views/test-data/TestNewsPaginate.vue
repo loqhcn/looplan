@@ -47,7 +47,7 @@ const dataSpace = new ModelSpace({
     provideToken: () => localStorage.getItem('token') || '',
 });
 
-const newsModel = dataSpace.useModel('test_dev/sl_test_news'); // dataSpace 新闻模型
+const newsModel = dataSpace.useModel('test/sl_test_news'); // dataSpace 新闻模型
 
 
 

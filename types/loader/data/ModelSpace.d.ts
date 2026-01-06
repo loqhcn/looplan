@@ -6,6 +6,10 @@ interface ModelSpaceOptions {
      * 提供token的函数
      */
     provideToken?: () => string;
+    /**
+     * 请求拦截器
+     */
+    requestInterceptors?: (config: any) => any;
 }
 declare class ModelSpace {
     url: string;

@@ -1,5 +1,6 @@
-import { JsDataType } from "./src/JsDataType";
+import { JsDataType, typeDefaultValue } from "./src/JsDataType";
 
 export {
-    JsDataType
+    JsDataType,
+    typeDefaultValue
 }

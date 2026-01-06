@@ -5,12 +5,16 @@
         <div class="gap">
             <button class="btn btn-primary" @click="loadNews()">加载新闻</button>
             <button class="btn btn-primary" @click="addNews()">添加新闻</button>
-            <button class="btn btn-primary" @click="addNews_multi()">批量添加新闻</button>
+            <button class="btn btn-primary" @click="saveOptions()">保存选项</button>
+            <button class="btn btn-primary" @click="countOptions()">统计选项</button>
+            <button class="btn btn-primary" @click="multiDelete()">批量删除</button>
+            <button class="btn btn-primary" @click="exists()">存在</button>
+            <button class="btn btn-primary" @click="loadRow()">加载行</button>
         </div>
         <div class="list test-list">
             <div class="item test-item" v-for="item in state.list" :key="item.id">
                 <div class="label">
-                    {{ item.title }}
+                 [{{ item.id }}] {{ item.title }}
                 </div>
                 <div class="handles">
                     <button class="btn btn-danger" @click="handleDelete(item.id)">删除</button>
@@ -79,8 +83,64 @@ const addNews_multi = async () => {
     loadNews();
 }
 
+const saveOptions = async () => {
+
+    let saveList = JSON.parse(JSON.stringify(state.list));
+    saveList = saveList.map((item: any) => {
+        return {
+            ...item,
+            title: item.title + '_' + new Date().getTime(),
+        }
+    })
+    saveList.push({
+        title: '测试新闻123',
+    })
+    saveList.push({
+        title: '测试新闻1234',
+    })
+    saveList.splice(0, 1);
+    saveList.splice(0, 1);
+
+
+    let res = await newsModel.saveOptions(saveList, {
+
+    });
+    console.log('保存选项', res);
+
+    loadNews();
+}
+
+
 const editNews = (item: any) => {
     console.log(item);
+}
+
+const countOptions = async () => {
+    let res = await newsModel.count({
+        title: '测试新闻',
+    });
+    console.log('统计选项', res);
+}
+
+const multiDelete = async () => {
+    let ids:string[] = [];
+    ids.push(state.list[state.list.length - 1].id);
+    ids.push(state.list[state.list.length - 2].id);
+    let res = await newsModel.multiDelete(ids);
+    console.log('批量删除', res);
+    loadNews();
+}
+
+const exists = async () => {
+    let res = await newsModel.exists({
+        title: '测试新闻',
+    });
+    console.log('存在', res);
+}
+
+const loadRow = async () => {
+    let res = await newsModel.row(state.list[0].id);
+    console.log('加载行', res);
 }
 
 
