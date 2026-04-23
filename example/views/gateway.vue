@@ -3,10 +3,14 @@
 
         <!-- <button class="btn btn-danger" @click="onTest">测试</button> -->
         gateway
-        <lp-component is="LooplanHotel@Demo1"></lp-component>
+
+        <lp-component is="Timetool@Home"></lp-component>
+
+
+        <!-- <lp-component is="LooplanHotel@Demo1"></lp-component> -->
         <!-- <component :is="loadComponent('LooplanHotel@Demo1')"></component> -->
 
-        <lp-component is="LooplanHotel@HotelManagement"></lp-component>
+        <!-- <lp-component is="LooplanHotel@HotelManagement"></lp-component> -->
 
 
 

@@ -18,15 +18,33 @@ function nameIsUseAsyncComponent(name: string) {
 }
 
 function setComponentPackage(packageData: any) {
-    console.log('%c设置组件包', "color:green;", packageData);
     componentManager.addLocalPackage(packageData.packageConfig, packageData);
 }
 
-/** 注册组件包信息 */
+/**
+ * 设置本地组件包
+ * @todo 设置已加载的组件包
+ * @param packageConfig 组件包配置
+ * @param packageData 组件包数据
+ */
+function setPkg(packageConfig: ComponentPackageConfig, packageData: any) {
+    componentManager.addLocalPackage(packageConfig, packageData);
+}
+
+/** 
+ * 注册组件包信息
+ * @todo 注册后, 组件包在线加载
+ */
+function regPkg(packageConfig: ComponentPackageConfig) {
+    componentManager.registerPackage(packageConfig);
+}
+
 function registerPackage(packageConfig: ComponentPackageConfig) {
     console.debug('%c注册组件包', "color:green;", packageConfig);
     componentManager.registerPackage(packageConfig);
 }
+
+
 
 /**
  * 加载样式（支持包级别和组件级别）
@@ -57,8 +75,8 @@ function isStyleLoaded(name: string): boolean {
 /**
  * 获取所有已加载的样式
  */
-function getLoadedStyles(name:string):  HTMLLinkElement[] {
-    return styleManager.getLoadedStyles(name) ;
+function getLoadedStyles(name: string): HTMLLinkElement[] {
+    return styleManager.getLoadedStyles(name);
 }
 
 /**
@@ -100,7 +118,7 @@ class ComponentLoader {
  * @param delay 等待时间
  * @returns 
  */
-function asyncComponentDelay(delay:number = 500) {
+function asyncComponentDelay(delay: number = 500) {
     return defineAsyncComponent({
         loader: () => {
             return new Promise(async (resolve, reject) => {
@@ -136,13 +154,13 @@ function getComponentOption(name: string) {
  * @param {Object} [options.loadingComponent] - 组件加载时显示的加载组件
  * @returns {Object} - 一个异步组件
  */
-function loadComponent(name:string, options = {}) {
+function loadComponent(name: string, options = {}) {
     // 解析组件名称
     name = componentManager.parseComponentName(name);
     // 合并默认配置和用户传入的配置
     const _options = Object.assign({
         // 定义组件加载失败时显示的组件
-        errorComponent: function (props:any) {
+        errorComponent: function (props: any) {
             return `组件加载失败:${name}`;
         },
         // 定义组件加载时显示的加载组件
@@ -156,7 +174,7 @@ function loadComponent(name:string, options = {}) {
             return new Promise(async (resolve, reject) => {
                 try {
                     // 打印调试信息，显示正在加载的组件名称
-                    console.debug('-- 加载组件:', name);
+                    // console.debug('-- 加载组件:', name);
                     // 从组件管理器中获取组件
                     let component = await componentManager.component(name);
                     // 如果组件不存在，拒绝 Promise 并抛出错误
@@ -179,7 +197,23 @@ function loadComponent(name:string, options = {}) {
     });
 }
 
+/**
+ * 加载组件包的成员
+ * @param name 组件包的成员名称
+ * - 格式：包名@成员名
+ * - 用于加载组件包导出的非组件的成员，如函数、常量等
+ * @returns 组件包的成员
+ */
+async function loadMember(name: string) {
+    const {
+        row,
+    } = await componentManager.getMember(name);
+    return row;
+}
+
 export {
+    setPkg,
+    regPkg,
     setComponentPackage,
     registerPackage,
     ComponentLoader,
@@ -189,6 +223,7 @@ export {
     // 异步组件定义
     loadComponent,
     asyncComponentDelay,
+    loadMember,
     // 方法
     nameIsUseAsyncComponent,
     getComponentOption,

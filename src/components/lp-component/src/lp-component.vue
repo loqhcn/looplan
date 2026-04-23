@@ -7,11 +7,10 @@
             <slot :name="name" v-bind="slotProps || {}" />
         </template>
     </component>
-    <div v-if="isError" class="m-component-error">
+    <div v-if="isError" class="lp-component-error">
         <div class="error-msg">{{ errorMessage }}</div>
         <button class="btn btn-primary link" @click.stop="onRetry">重试</button>
     </div>
-
 </template>
 <script setup lang="ts">
 import { ref, reactive, onMounted, watch, onErrorCaptured, useAttrs, computed, useSlots, markRaw } from 'vue';
@@ -46,7 +45,6 @@ watch(() => props.is as any, (newVal, oldVal) => {
     }
 
     if (typeof newVal === 'string' && nameIsUseAsyncComponent(newVal)) {
-
         loadComponentInstance(newVal)
     } else {
         AsyncComponent.value = markRaw(newVal as any)
@@ -83,7 +81,10 @@ function onRetry() {
 
 // 捕获组件内部的错误
 onErrorCaptured((err, instance, info) => {
-    // console.log('onErrorCaptured', err, instance, info);
+    console.error(`err of ${props.is}`)
+    console.error('onErrorCaptured', err);
+    // isError.value = true;
+    // errorMessage.value = err.message;
     // 返回 false 阻止默认的错误处理
     return false;
 });
@@ -167,7 +168,9 @@ export default {
 }
 </script>
 <style lang="scss">
-.m-component-error {
-    color: red;
+.lp-component-error {
+    color: gray;
+    display: flex;
+    align-items: center;
 }
 </style>

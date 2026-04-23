@@ -1,14 +1,44 @@
 import { ref } from 'vue';
 import type { CSSProperties } from 'vue';
-export interface FollowOptions {
-    position: string;
-    arrow?: boolean;
-    arrowSize?: number;
-    fps?: number;
-}
+/**
+ * 跟随属性类型定义
+ */
 export interface FollowProps {
+    /**
+     * 跟随目标元素
+     */
     target: string | HTMLElement;
+    /**
+     * 跟随选项
+     */
     options: FollowOptions;
+}
+/**
+ * 跟随选项类型定义
+ */
+export interface FollowOptions {
+    /**
+     * 跟随位置 [方向]-[对齐位置]
+     * - 方向: top | bottom | left | right
+     * - 对齐位置: center | start | end
+     */
+    position: string;
+    /**
+     * 跟随的fps，用于一些带动画的元素
+     */
+    fps?: number;
+    /**
+     * 是否显示箭头
+     */
+    arrow?: boolean;
+    /**
+     * 箭头大小
+     */
+    arrowSize?: number;
+    /**
+    * 颜色
+    */
+    arrowColor?: string;
 }
 interface UseFollowReturn {
     followTarget: ReturnType<typeof ref<HTMLElement | string | null>>;
@@ -24,10 +54,10 @@ interface UseFollowReturn {
         height: number;
     };
     showArrow: ReturnType<typeof ref<Boolean>>;
-    initFollow: (followProps: FollowProps | null, containerRef: HTMLElement, containerStyle: CSSProperties, onPositionCalculated?: () => void) => boolean;
+    initFollow: (containerRef: HTMLElement, containerStyle: CSSProperties, onPositionCalculated?: () => void) => boolean;
     updateFollowPosition: (containerRef: HTMLElement, containerStyle: CSSProperties, onPositionCalculated?: () => void) => void;
     updateArrowStyle: () => void;
     cleanup: () => void;
 }
-declare function useFollow(): UseFollowReturn;
+declare function useFollow(followProps?: FollowProps): UseFollowReturn;
 export default useFollow;

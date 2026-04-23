@@ -1,4 +1,4 @@
-import type { UploadFileItem, UploadActionOption } from '../src/types';
+import type { UploadFileItem, UploadActionOption } from '../types';
 export interface UploadProgress {
     /**
      * 已上传文件大小

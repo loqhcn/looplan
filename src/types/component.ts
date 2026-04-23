@@ -64,9 +64,13 @@ export interface ComponentPackageConfig {
      */
     keepOfWindow?: boolean;
     /**
-     * cdn 地址
+     * 主模块地址
      */
     cdn?: string;
+    /**
+     * es模块地址
+     */
+    esCdn?: string;
     /**
      * 样式cdn地址
      */

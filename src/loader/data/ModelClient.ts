@@ -1,4 +1,4 @@
-import type ModelSpace from "./ModelSpace";
+import type { ModelSpace } from "./ModelSpace";
 import { LooplanException } from "@/index";
 import type {
     FilterOption,
@@ -16,7 +16,15 @@ import type {
     PaginateXOptions
 } from "../../types/model-client";
 
-
+function errorResult(data: any) {
+    return {
+        error: {
+            code: 500,
+            msg: '请求失败',
+        },
+        ...data,
+    }
+}
 
 class ModelClient {
     space: ModelSpace;
@@ -44,6 +52,9 @@ class ModelClient {
         let result = await instance.post(`${this.modelName}.list`, {
             ...params,
         });
+        if (!result) {
+            return errorResult({ list: [], result })
+        }
         return {
             error: result.code === 200 ? null : {
                 code: result.code,
@@ -68,6 +79,9 @@ class ModelClient {
             psize,
             ...params,
         });
+        if (!result) {
+            return errorResult({ list: [], result })
+        }
 
         let pageStatus = result.data.list;
         let list = pageStatus?.data || [];
@@ -95,6 +109,10 @@ class ModelClient {
             options: options || null,
             ...params,
         });
+        if (!result) {
+            return errorResult({ list: [], result })
+        }
+
 
         let pageStatus = result.data.list;
         let list = pageStatus?.data || [];
@@ -126,6 +144,10 @@ class ModelClient {
             data,
             ...params,
         });
+        if (!result) {
+            return errorResult({ result })
+        }
+
         return {
             error: result.code === 200 ? null : {
                 code: result.code,
@@ -147,6 +169,9 @@ class ModelClient {
             data,
             ...params,
         });
+        if (!result) {
+            return errorResult({ result })
+        }
         return {
             error: result.code === 200 ? null : {
                 code: result.code,
@@ -170,6 +195,9 @@ class ModelClient {
             data,
             ...params,
         });
+        if (!result) {
+            return errorResult({ result })
+        }
         return {
             error: result.code === 200 ? null : {
                 code: result.code,
@@ -191,6 +219,9 @@ class ModelClient {
             id,
             ...params,
         });
+        if (!result) {
+            return errorResult({ result })
+        }
         return {
             error: result.code === 200 ? null : {
                 code: result.code,
@@ -212,6 +243,9 @@ class ModelClient {
             id,
             ...params,
         });
+        if (!result) {
+            return errorResult({ result })
+        }
         return {
             error: result.code === 200 ? null : {
                 code: result.code,
@@ -231,6 +265,9 @@ class ModelClient {
             id,
             ...params,
         });
+        if (!result) {
+            return errorResult({ result, row: null })
+        }
         return {
             error: result.code === 200 ? null : {
                 code: result.code,
@@ -253,6 +290,9 @@ class ModelClient {
             belong,
             ...params,
         });
+        if (!result) {
+            return errorResult({ result })
+        }
         return {
             error: result.code === 200 ? null : {
                 code: result.code,
@@ -284,6 +324,9 @@ class ModelClient {
             filter: filterOption,
             ...params,
         });
+        if (!result) {
+            return errorResult({ result, count: 0 })
+        }
         return {
             error: result.code === 200 ? null : {
                 code: result.code,
@@ -311,6 +354,9 @@ class ModelClient {
             value,
             ...params,
         });
+        if (!result) {
+            return errorResult({ result })
+        }
         return {
             error: result.code === 200 ? null : {
                 code: result.code,
@@ -340,6 +386,9 @@ class ModelClient {
             filter: filterOption,
             ...params,
         });
+        if (!result) {
+            return errorResult({ result })
+        }
         return {
             error: result.code === 200 ? null : {
                 code: result.code,
@@ -359,6 +408,9 @@ class ModelClient {
         let result = await instance.post(`${this.modelName}.multiSave`, {
             list: dataList
         });
+        if (!result) {
+            return errorResult({ result })
+        }
         return {
             error: result.code === 200 ? null : {
                 code: result.code,
@@ -378,6 +430,9 @@ class ModelClient {
             ids: idArr,
             ...params,
         });
+        if (!result) {
+            return errorResult({ result })
+        }
         return {
             error: result.code === 200 ? null : {
                 code: result.code,

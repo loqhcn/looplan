@@ -2,12 +2,14 @@
 # Looplan
 
 [查看文档 Documentation](http://doc.looplan.cn/looplan)
+<a href="http://doc.looplan.cn/looplan" target="_blank" rel="noopener noreferrer" style="color: #007bff;font-size: 18px;">查看文档</a>
 
 vue3云组件库开发, 目的是用于开发和使用云组件,并封装常用JS库提供快速开发
 - 当前处于开发阶段, 不建议在生产环境使用
 - 技术讨论QQ群: 1047604746 
 
 # 更新记录
+- 2026-4-23 es模块加载
 - 2026-1-6  整理文档站点
 - 2025-11-1 开始集成`looplan-serverless`云函数功能,新增`ModelSpace`对象 [ModelSpace](#modelspace) 
 - 2025-9-17 新增`lp-icon`组件,iconfont加载,网关加载

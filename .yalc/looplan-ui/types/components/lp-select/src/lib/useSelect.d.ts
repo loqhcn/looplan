@@ -1,4 +1,4 @@
-import { SelectValueTypeEnum } from '../types';
+import { SelectValueTypeEnum } from '../../../../lib/select/SelectManager';
 interface UseSelectOption {
     /**
      * 选项值字段

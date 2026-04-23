@@ -10,7 +10,7 @@ export default {
 </script>
 
 <script  setup lang="ts">
-import { ref, watch, onMounted,computed, useAttrs,withDefaults } from 'vue';
+import { ref, watch, onMounted,computed, useAttrs } from 'vue';
 import { isString } from 'lodash-es';
 import type { LpIconProps } from '../types';
 import { loadIcon, parseIconName } from '../lib';

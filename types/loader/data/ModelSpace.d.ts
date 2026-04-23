@@ -1,3 +1,4 @@
+import { type ApiRetryOption } from "@/api";
 import ModelClient from "./ModelClient";
 interface ModelSpaceOptions {
     url: string;
@@ -5,11 +6,37 @@ interface ModelSpaceOptions {
     /**
      * 提供token的函数
      */
-    provideToken?: () => string;
+    provideToken?: (isRetry?: boolean) => string | Promise<string>;
     /**
      * 请求拦截器
      */
     requestInterceptors?: (config: any) => any;
+    /**
+     * 重试配置
+     */
+    retry?: ApiRetryOption | Boolean;
+}
+/**
+ * 调用 云函数 选项
+ */
+interface UseCloudFuncOptions {
+    /**
+     * 传递配置给axios
+     */
+    config?: Record<string, any>;
+}
+/**
+ * 调用 云对象 选项
+ */
+interface UseCloudObjOptions {
+    /**
+     * 是否传递参数作为云对象的方法参数
+     */
+    args?: Boolean;
+    /**
+     * 传递配置给axios
+     */
+    config?: Record<string, any>;
 }
 declare class ModelSpace {
     url: string;
@@ -30,24 +57,25 @@ declare class ModelSpace {
      * 导入云函数
      * @param name 云函数名称
      */
-    useCloudFunction(name: string): (params: any) => Promise<any>;
+    useCloudFunction(name: string, funcOptions?: UseCloudFuncOptions): (params?: Record<string, any>) => Promise<any>;
+    /**
+     * 调用云函数
+     * @param name 云函数名称
+     * @param params 调用参数
+     */
+    callCloudFunction(name: string, params: any, config?: any): Promise<any>;
     /**
      * 导入云对象
      * @param name 云对象名称
      */
-    useCloudObject(name: string): any;
+    useCloudObject(name: string, objOptions?: UseCloudObjOptions): any;
     /**
      * 调用云对象方法
      * @param objectName 云对象名称
      * @param methodName 方法名称
      * @param params 调用参数
      */
-    callCloudObject(objectName: string, methodName: string, params: any): Promise<any>;
-    /**
-     * 调用云函数
-     * @param name 云函数名称
-     * @param params 调用参数
-     */
-    callCloudFunction(name: string, params: any): Promise<any>;
+    callCloudObject(objectName: string, methodName: string, params: any, config?: any): Promise<any>;
 }
-export default ModelSpace;
+declare function getDefaultRetryOption(): ApiRetryOption;
+export { ModelSpace, getDefaultRetryOption };

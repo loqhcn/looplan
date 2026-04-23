@@ -1,2 +1,2 @@
-import { JsDataType } from "./src/JsDataType";
-export { JsDataType };
+import { JsDataType, typeDefaultValue } from "./src/JsDataType";
+export { JsDataType, typeDefaultValue };

@@ -2,7 +2,7 @@
   "version": "v1",
   "packages": {
     "looplan-ui": {
-      "signature": "9e25fdedefb89f86f75fb917176fcccc",
+      "signature": "99c58483210392771d344ded2a0ee70f",
       "file": true,
       "replaced": "^1.0.1"
     }

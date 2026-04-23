@@ -1,5 +1,6 @@
 import LayerGroup from './LayerGroup';
 import type { ComponentInternalInstance } from 'vue';
+import type { FollowOptions, FollowProps } from './UseFollow';
 interface LayerPosition {
     /**
      * 宽度
@@ -23,12 +24,6 @@ interface LayerPosition {
      * 是否反向
      * @todo 默认是通过left和top来定位，如果设置为true，则通过right和bottom来定位     */
     reverse?: Boolean;
-}
-export interface FollowOptions {
-    position: string;
-    arrow?: boolean;
-    arrowSize?: number;
-    fps?: number;
 }
 type DrawerDirection = 'right' | 'left' | 'top' | 'bottom';
 export interface MaskOptions {
@@ -123,10 +118,7 @@ declare class Layer {
          * 跟随
          * 跟随某个dom的位置
          */
-        follow?: {
-            target: HTMLElement | string;
-            options: FollowOptions;
-        };
+        follow?: FollowProps;
         /**
          * 管理组
          */
@@ -135,6 +127,10 @@ declare class Layer {
          * 追加到哪个元素
          */
         appendTo?: HTMLElement | null;
+        /**
+         * 继承哪个组件实例的上下文（用于 inject / 全局属性等）
+         */
+        sourceInstance?: ComponentInternalInstance | null;
     };
     layerVnode: any;
     contentVnode: any;
@@ -143,11 +139,23 @@ declare class Layer {
     layerZIndex: number;
     maskZIndex: number;
     containerEl: HTMLElement | null;
-    layerElement: Element | null;
+    layerElement: HTMLElement | null;
     createTime: number;
     get vnode(): any;
     constructor();
     static src(component: any): Layer;
+    /**
+     * 来源组件实例的上下文
+     * @todo 实现读取组件的`provide`
+     * @param instance 组件实例
+     * @returns
+     */
+    source(instance: ComponentInternalInstance | null): this;
+    /**
+     * 解析应用上下文
+     * @returns 应用上下文或undefined
+     */
+    private resolveAppContext;
     model(model: any): this;
     zIndex(zIndex: number): this;
     on(event: string, callback: (...args: any[]) => void): this;
@@ -169,6 +177,13 @@ declare class Layer {
     props(props: any): this;
     containerProps(props: any): this;
     containerModel(model: any): this;
+    /**
+     * 设置是否开启遮罩层
+     * @param use 是否开启(true时开启，false时关闭)
+     * @param options 遮罩层配置
+     * - close: 是否点击遮罩层关闭层
+     * @returns
+     */
     useMask(use?: boolean, options?: MaskOptions): this;
     /**
      * 开启外部点击事件关闭层
@@ -215,11 +230,18 @@ declare class Layer {
     drawerDirection(direction: DrawerDirection): this;
     private getContentComponent;
     /**
+     * 打开弹出层
+     * @param position 弹出层位置
+     * @returns
+     */
+    open(position?: LayerPosition): Promise<this>;
+    /**
      * 显示层
+     * @todo open方法代理
      * @param position 位置
      * @returns
      */
-    show(position?: LayerPosition): this;
+    show(position?: LayerPosition): Promise<this>;
     /**
      * 获取追加到的元素
      * @returns

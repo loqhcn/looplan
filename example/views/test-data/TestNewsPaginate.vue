@@ -31,23 +31,16 @@
 </template>
 <script lang="ts" setup>
 import { ref, reactive, onMounted } from 'vue';
-import ModelSpace from '@/loader/data/ModelSpace';
+import { ModelSpace } from '@/index';
 import { LpLayer } from 'looplan-ui';
 import EditNews from './children/editNews.vue';
 import type { PaginatePageStatus } from '@/index';
 import LpPaginate from '../../components/lp-paginate.vue';
-
+import { newsModel } from '@example/views/test-data';
 const coreSpace = new ModelSpace({
     url: 'http://localhost:9000',
     provideToken: () => '123456',
 });
-
-const dataSpace = new ModelSpace({
-    url: 'http://localhost:9002',
-    provideToken: () => localStorage.getItem('token') || '',
-});
-
-const newsModel = dataSpace.useModel('test/sl_test_news'); // dataSpace 新闻模型
 
 
 

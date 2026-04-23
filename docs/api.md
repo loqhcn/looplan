@@ -30,6 +30,7 @@ let result = await TestObj.test1({
 ```
 
 ## 模型查询(常用增删改查)
+[详细使用](./api-model.md)
 
 ```ts
 import { ModelSpace } from 'looplan';

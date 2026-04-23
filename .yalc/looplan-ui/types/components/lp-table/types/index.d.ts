@@ -11,7 +11,7 @@ export interface TableColumn {
      * 列宽度
      *
      */
-    width?: string;
+    width?: string | number;
     /**
      * 列对齐方式
      */

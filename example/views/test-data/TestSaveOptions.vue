@@ -14,7 +14,7 @@
         <div class="list test-list">
             <div class="item test-item" v-for="item in state.list" :key="item.id">
                 <div class="label">
-                 [{{ item.id }}] {{ item.title }}
+                    [{{ item.id }}] {{ item.title }}
                 </div>
                 <div class="handles">
                     <button class="btn btn-danger" @click="handleDelete(item.id)">删除</button>
@@ -27,22 +27,9 @@
 </template>
 <script lang="ts" setup>
 import { ref, reactive, onMounted } from 'vue';
-import ModelSpace from '@/loader/data/ModelSpace';
 import { LpLayer } from 'looplan-ui';
 import EditNews from './children/editNews.vue';
-
-const coreSpace = new ModelSpace({
-    url: 'http://localhost:9000',
-    provideToken: () => '123456',
-});
-
-const dataSpace = new ModelSpace({
-    url: 'http://localhost:9002',
-    provideToken: () => localStorage.getItem('token') || '',
-});
-
-const newsModel = dataSpace.useModel('test/sl_test_news'); // dataSpace 新闻模型
-
+import { newsModel } from '.';
 
 
 const state = reactive({
@@ -123,7 +110,7 @@ const countOptions = async () => {
 }
 
 const multiDelete = async () => {
-    let ids:string[] = [];
+    let ids: string[] = [];
     ids.push(state.list[state.list.length - 1].id);
     ids.push(state.list[state.list.length - 2].id);
     let res = await newsModel.multiDelete(ids);

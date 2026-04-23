@@ -4,6 +4,7 @@ interface GatewayOption {
      * 网关名称
      */
     name: string;
+    
     /**
      * 网关地址
      */
@@ -19,6 +20,11 @@ interface GatewayOption {
      * 网关token
      */
     token?: string;
+
+    /**
+     * 自定义请求头
+     */
+    headers?: Record<string, any>;
 }
 
 

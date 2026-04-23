@@ -57,6 +57,10 @@ declare class LayerGroup {
      */
     private itemsPerRow;
     groupElement: HTMLElement | null;
+    /**
+     * 管理组构造函数
+     * @param mode 管理组模式 x | y | xy
+     */
     constructor(mode?: LayerMode);
     /**
      * 获取追加到的元素
@@ -106,11 +110,11 @@ declare class LayerGroup {
      */
     initGroupContainerStyle(): void;
     /**
-     * 计算层的位置
+     * TODO 计算层的位置
      * @param containerStyle 容器样式
      * @param layer 层对象
      */
-    computePosition(containerStyle: CSSProperties, layer: Layer): void;
+    computePosition(containerStyle: CSSProperties, layer: Layer): Promise<unknown>;
     /**
      * 获取或创建层的占位元素
      * @param layer 层对象

@@ -39,4 +39,5 @@ export default {
     Panel: import('./src/panel.vue'),
     Box: import('./src/box.vue'),
     TestText: import('./src/text.vue'),
+    TestError: import('./testError.vue')
 }

@@ -15,7 +15,7 @@ interface ToastOptions {
     duration?: number;
     /**
      * 类型
-     * 可选值：success、error、warning、info
+     * 可选值：primary、success、danger、warning、info
      * 默认值：info
      */
     type?: string;
@@ -31,7 +31,7 @@ interface ConfirmOptions extends AlertOptions {
  * @param options 消息文本或配置对象
  * @returns Layer实例
  */
-declare function toast(message: string, options: ToastOptions): Promise<Layer>;
+declare function toast(message: string, options?: ToastOptions): Promise<Layer>;
 /**
  * 显示确认框
  * @param options 消息文本或配置对象

@@ -1,9 +1,4 @@
 import type { ComponentOption, ComponentPackageConfig, LoadedModule } from '@/types/component';
-declare global {
-    interface Window {
-        [key: string]: any;
-    }
-}
 /**
  * TODO 组件管理器
  *
@@ -28,6 +23,18 @@ export declare class ComponentManager {
      * @param component 可选，如果传入则注册该组件
      */
     component(nameRaw: string, component?: any): Promise<any>;
+    /**
+     * TODO -- 获取组件
+     * @param name 组件名称
+     * @returns 组件
+     */
+    getMember(nameRaw: string): Promise<{
+        pkgConfig: ComponentPackageConfig;
+        componentOption: ComponentOption | undefined;
+        row: any;
+        pkg: string;
+        name: string;
+    }>;
     /**
      * TODO -- 获取组件选项对象
      * @param item 组件选项或组件名称字符串
@@ -72,9 +79,7 @@ export declare class ComponentManager {
      */
     registerPackage(cfg: ComponentPackageConfig): void;
     /**
-     * TODO -- 通过 CDN 加载全局 UMD 包
-     * @todo 添加script
-     * @todo 读取已加载数据
+     * TODO -- 通过远程地址加载组件包
      * @param packageInfo 组件包配置
      * @returns 组件包数据
      */

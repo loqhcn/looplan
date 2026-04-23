@@ -2,23 +2,22 @@
     <div class="m-layout">
         云组件加载测试
 
+        <lp-panel title="本地组件">
+            <lp-component is="test@Test1"></lp-component>
+        </lp-panel>
 
-        <div class="m-panel">
-            <div class="padding-y">
-                <div class="module-title">本地组件</div>
-                <lp-component is="MuloLayer@MuloTest"></lp-component>
-            </div>
 
-            <div>
-                <!-- <component :is="loadComponent('MuloLayer@MuloTest')"></component> -->
-            </div>
+        <lp-panel title="测试错误">
+            <lp-component is="test@TestError"></lp-component>
 
+        </lp-panel>
+
+        <lp-panel title="饿了么组件">
             <div class="padding-y">
                 <div class="module-title">在线组件</div>
                 <lp-component is="ElementPlus@ElButton" type="primary">ElementPlus按钮</lp-component>
                 <lp-component is="ElementPlus@ElText" type="primary">ElementPlus文本</lp-component>
             </div>
-
 
             <!-- 饿了么组件 -->
             <Suspense>
@@ -43,17 +42,10 @@
                 </template>
             </Suspense>
 
+        </lp-panel>
 
 
-
-
-            <!-- <div class="padding-y">
-                <div>在线组件</div>
-                <lp-component is="mm@Test1" v-model="state.name">
-                    123123123123123
-                </lp-component>
-            </div> -->
-
+        <div class="m-panel">
             <div class="module-title">使用vue.component</div>
             <div class="padding-y">
                 <div>lp-component</div>
@@ -86,7 +78,7 @@
             <div class="module-title">列表渲染测试</div>
             <div class="padding-y">
                 <div class="list-panels">
-                    <lp-component v-for="item in listItems"  is="test@Test2" :key="item.id"></lp-component>
+                    <lp-component v-for="item in listItems" is="test@Test2" :key="item.id"></lp-component>
                 </div>
             </div>
 

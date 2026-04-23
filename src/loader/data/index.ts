@@ -1,5 +1,5 @@
 import { LooplanException } from './../../exception/LooplanException';
-import type ModelSpace from './ModelSpace';
+import { ModelSpace } from './ModelSpace';
 
 const modelSpaceMap = new Map<string, ModelSpace>()
 
@@ -14,4 +14,5 @@ const useModelSpace = (name: string) => {
 export {
     modelSpaceMap,
     useModelSpace,
+    ModelSpace
 }

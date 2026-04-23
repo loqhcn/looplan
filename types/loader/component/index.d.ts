@@ -7,7 +7,18 @@ import type { ComponentPackageConfig, ComponentLoaderOptions, ComponentOption } 
  */
 declare function nameIsUseAsyncComponent(name: string): false | RegExpMatchArray | null;
 declare function setComponentPackage(packageData: any): void;
-/** 注册组件包信息 */
+/**
+ * 设置本地组件包
+ * @todo 设置已加载的组件包
+ * @param packageConfig 组件包配置
+ * @param packageData 组件包数据
+ */
+declare function setPkg(packageConfig: ComponentPackageConfig, packageData: any): void;
+/**
+ * 注册组件包信息
+ * @todo 注册后, 组件包在线加载
+ */
+declare function regPkg(packageConfig: ComponentPackageConfig): void;
 declare function registerPackage(packageConfig: ComponentPackageConfig): void;
 /**
  * 加载样式（支持包级别和组件级别）
@@ -67,4 +78,12 @@ declare function getComponentOption(name: string): ComponentOption | undefined;
 declare function loadComponent(name: string, options?: {}): {
     default: never;
 };
-export { setComponentPackage, registerPackage, ComponentLoader, asyncLoading, asyncError, loadComponent, asyncComponentDelay, nameIsUseAsyncComponent, getComponentOption, loadStyle, unloadStyle, isStyleLoaded, getLoadedStyles, unloadAllStyles, };
+/**
+ * 加载组件包的成员
+ * @param name 组件包的成员名称
+ * - 格式：包名@成员名
+ * - 用于加载组件包导出的非组件的成员，如函数、常量等
+ * @returns 组件包的成员
+ */
+declare function loadMember(name: string): Promise<any>;
+export { setPkg, regPkg, setComponentPackage, registerPackage, ComponentLoader, asyncLoading, asyncError, loadComponent, asyncComponentDelay, loadMember, nameIsUseAsyncComponent, getComponentOption, loadStyle, unloadStyle, isStyleLoaded, getLoadedStyles, unloadAllStyles, };

@@ -2,24 +2,35 @@
     <div class="lp-layout">
         <lp-tabs v-model="state.activeTabIndex" :data="state.list" type="card" model-type="index"></lp-tabs>
         <component :is="state.list[state.activeTabIndex].component"></component>
-
     </div>
 </template>
 <script lang="ts" setup>
 import { ref, reactive, onMounted, markRaw } from 'vue';
 
+import auth from './test-data/auth.vue';
 import TestNews from './test-data/TestNews.vue';
 import SlTestNews from './test-data/SlTestNews.vue';
 import TestList from './test-data/TestList.vue';
 import TestNewsPaginate from './test-data/TestNewsPaginate.vue';
 import TestNewsPaginateX from './test-data/TestNewsPaginateX.vue';
 import TestSaveOptions from './test-data/TestSaveOptions.vue';
+import ModelTest from './test-data/ModelTest.vue';
 
 
 
 const state = reactive({
-    activeTabIndex: 0,
+    activeTabIndex: 1,
     list: [
+        {
+            name: 'vbase-auth',
+            title: '认证',
+            component: markRaw(auth)
+        },
+        {
+            name: 'ModelTest',
+            title: '模型测试',
+            component: markRaw(ModelTest)
+        },
         {
             name: 'TestSaveOptions',
             title: '测试保存选项',

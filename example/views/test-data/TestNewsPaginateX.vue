@@ -26,24 +26,11 @@
 </template>
 <script lang="ts" setup>
 import { ref, reactive, onMounted } from 'vue';
-import ModelSpace from '@/loader/data/ModelSpace';
+import { ModelSpace } from '@/index';
 import { LpLayer } from 'looplan-ui';
 import EditNews from './children/editNews.vue';
 import type { PaginateXPageStatus } from '@/types/model-client';
-
-const coreSpace = new ModelSpace({
-    url: 'http://localhost:9000',
-    provideToken: () => '123456',
-});
-
-const dataSpace = new ModelSpace({
-    url: 'http://localhost:9002',
-    provideToken: () => localStorage.getItem('token') || '',
-});
-
-const newsModel = dataSpace.useModel('test/sl_test_news'); // dataSpace 新闻模型
-
-
+import { newsModel } from '@example/views/test-data';
 
 const state = reactive({
     list: [] as any[],
@@ -60,7 +47,7 @@ const loadNews = async (reset = false) => {
         state['lastIndex'] = 0;
     }
 
-    if(!state.pageStatus.hasMore) {
+    if(state.pageStatus.hasMore===false) {
         LpLayer.toast('没有更多数据了',{
             duration: 1000,
         });
@@ -110,7 +97,7 @@ const editNews = (item: any) => {
 }
 
 
-onMounted(async () => {
+onMounted( () => {
     loadNews();
 })
 

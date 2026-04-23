@@ -1,5 +1,5 @@
-import type { UploadFileItem } from '../src/types';
-import { UploadStatusEnum } from '../src/types';
+import type { UploadFileItem } from '../types';
+import { UploadStatusEnum } from '../types';
 import { UploadToServer } from './methods';
 declare function useUpload(model: any, options: any): {
     selectFile: () => void;

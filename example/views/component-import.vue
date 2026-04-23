@@ -31,7 +31,7 @@ import { ref,reactive,onMounted,getCurrentInstance, render,h } from 'vue';
 import Test1 from './test-component/test1.vue';
 import { setGateway, loadComponent,setComponentPackage ,setIconGateway} from '@/index';
 import { resolveComponent } from '@/index';
-import testPkg from './test_pkg/index.ts'
+import testPkg from './test_pkg/index.ts';
 // 设置本地组件库
 setComponentPackage(testPkg)
 setGateway({

@@ -49,17 +49,17 @@ export class StyleManager {
 
     // 检查是否已经在加载中，如果是则等待之前的加载完成
     if (this.loadingPromises.has(group)) {
-      console.debug(`样式正在加载中，等待完成: %c${group}`, 'color: orange');
+      // console.debug(`样式正在加载中，等待完成: %c${group}`, 'color: orange');
       return this.loadingPromises.get(group)!;
     }
 
     // 检查是否已经加载过
     if (this.isStyleLoaded(name)) {
-      console.debug(`样式已加载，跳过: %c${group}`, 'color: blue');
+      // console.debug(`样式已加载，跳过: %c${group}`, 'color: blue');
       return;
     }
 
-    console.debug(`加载样式: %c${group}`, 'color: red');
+    // console.debug(`加载样式: %c${group}`, 'color: red');
 
     // 创建加载Promise并缓存
     const loadPromise = this.doLoadStyle(group, styleUrls, version, componentName);

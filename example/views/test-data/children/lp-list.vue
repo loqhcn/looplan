@@ -29,7 +29,8 @@ const state = reactive({
 async function loadList() {
     const model = props.model;
     if (props.apiType === 'list') {
-        state.listRender = await model.list();
+        const ret = await model.list();
+        state.listRender = ret.list || [];
     }
 }
 

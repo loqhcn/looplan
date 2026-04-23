@@ -1,4 +1,4 @@
-import type ModelSpace from "./ModelSpace";
+import type { ModelSpace } from "./ModelSpace";
 import type { FilterOption, ApiError, ApiResult, IdArr, listApiResult, RowApiResult, PaginateApiResult, PaginateXApiResult, PaginateXOptions } from "../../types/model-client";
 declare class ModelClient {
     space: ModelSpace;

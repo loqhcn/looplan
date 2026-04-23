@@ -1,7 +1,8 @@
-import SelectSelectedOne from './src/selected/lp-select-selected-one.vue';
-import SelectSelectedTag from './src/selected/lp-select-selected-tag.vue';
+import LpSelect from './src/lp-select.vue';
+import LpSelectSelectedOne from './src/selected/lp-select-selected-one.vue';
+import LpSelectSelectedTag from './src/selected/lp-select-selected-tag.vue';
 declare let component: {
     install: (app: any) => void;
 };
 export default component;
-export { SelectSelectedOne, SelectSelectedTag };
+export { LpSelect, LpSelectSelectedOne, LpSelectSelectedTag };

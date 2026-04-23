@@ -17,6 +17,11 @@ import { setGateway, loadComponent, setComponentPackage, setIconGateway } from '
 
 import currentLib from '@/index';
 
+import {
+    mainSpace,
+    dataSpace
+} from '@example/views/test-data';
+
 // 扩展 Window 类型，添加 Vue 属性
 declare global {
     interface Window {
@@ -31,6 +36,7 @@ async function bootstrap() {
     const app = createApp(App);
     app.use(LooplanUi.default);
     app.use(currentLib);
+    Looplan.looplanConfig.mode = 'umd';
 
     setGateway({
         url: 'http://localhost:9000/ComponentGateway.detail',
@@ -46,6 +52,9 @@ async function bootstrap() {
     });
 
     await setupRouter(app).isReady();
+ 
+    Looplan.modelSpaceMap.set('main', mainSpace);
+    Looplan.modelSpaceMap.set('data', dataSpace);
 
     app.mount('#app');
 
@@ -54,6 +63,8 @@ async function bootstrap() {
     window.Vue = Vue;
     window.Looplan = Looplan;
     window.LooplanUi = LooplanUi;
+    window.LooplanUI = LooplanUi;
+
 }
 
 bootstrap();
