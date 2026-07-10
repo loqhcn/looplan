@@ -17,5 +17,9 @@ interface GatewayOption {
      * 网关token
      */
     token?: string;
+    /**
+     * 自定义请求头
+     */
+    headers?: Record<string, any>;
 }
 export type { GatewayOption, ComponentPackageConfig };

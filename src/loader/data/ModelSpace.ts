@@ -67,7 +67,7 @@ class ModelSpace {
             retryOption = this.options.retry as ApiRetryOption;
         }
 
-        console.log('重试配置:', retryOption);
+        // console.log('重试配置:', retryOption);
 
         this.instance = createApi({
             baseURL: this.url,

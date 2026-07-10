@@ -26,6 +26,7 @@ const props = defineProps({
 const isError = ref<boolean>(false);
 const errorMessage = ref<string>('');
 let retryMethod: any = null;
+const isRetrying = ref<boolean>(false);
 
 const innerRef = ref<any>(null);
 const renderKey = ref<number>(0);
@@ -65,18 +66,24 @@ function loadComponentInstance(newVal: string) {
             console.error('onError', attempts);
             retryMethod = retry;
             isError.value = true;
-            errorMessage.value = `组件加载失败: ${error.message}`;
+            errorMessage.value = `error: ${error.message}`;
             fail();
         }
     }))
 }
 
 // 重试
-function onRetry() {
-    // retryMethod && retryMethod();
+async function onRetry() {
+    if (isRetrying.value) return;
+    isRetrying.value = true;
+
     isError.value = false;
     errorMessage.value = '';
-    retryMethod?.()
+    try {
+        retryMethod?.()
+    } finally {
+        isRetrying.value = false;
+    }
 }
 
 // 捕获组件内部的错误

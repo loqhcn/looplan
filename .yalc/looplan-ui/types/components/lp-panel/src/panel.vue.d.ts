@@ -6,6 +6,7 @@ declare const _default: __VLS_WithSlots<import("vue").DefineComponent<PanelProps
 }>, {
     title: string;
 }, {}, {}, {}, string, import("vue").ComponentProvideOptions, false, {}, any>, {
+    header?: ((props: {}) => any) | undefined;
     default?: ((props: {}) => any) | undefined;
 }>;
 export default _default;

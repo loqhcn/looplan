@@ -15,6 +15,13 @@ interface TooltipOptions {
      * @default 1
      */
     limit: number;
+    /**
+      * 跟随位置 [方向]-[对齐位置]
+      * - 方向: top | bottom | left | right
+      * - 对齐位置: center | start | end
+      * @default 'bottom-center'
+      */
+    position?: string;
 }
 declare function useTooltip(options: TooltipOptions, rangeEl?: HTMLElement): {
     tooltipEnable: import("vue").Ref<boolean, boolean>;
@@ -25,6 +32,6 @@ declare function useTooltip(options: TooltipOptions, rangeEl?: HTMLElement): {
  * @param src 触发元素
  * @param props tooltip属性
  */
-declare function mountTooltip(src: HTMLElement, props: TooltipProps): Promise<Layer>;
+declare function mountTooltip(src: HTMLElement, props: TooltipProps): Layer;
 export { useTooltip, mountTooltip };
 export type { TooltipOptions };

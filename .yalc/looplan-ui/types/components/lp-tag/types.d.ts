@@ -1,28 +1,28 @@
 export interface TagProps {
-    type: string;
+    type?: string;
     /**
      * 尺寸
      * - max / default / mini
      */
-    size: string;
+    size?: string;
     /**
      * 是否朴素样式
      *
      */
-    plain: boolean;
+    plain?: boolean;
     /**
      * 是否圆形
      *
      */
-    round: boolean;
+    round?: boolean;
     /**
      * 是否可关闭
      *
      */
-    closable: boolean;
+    closable?: boolean;
     /**
      * 是否禁用
      *
      */
-    disabled: boolean;
+    disabled?: boolean;
 }

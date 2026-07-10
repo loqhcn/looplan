@@ -1,13 +1,14 @@
-import type { TableColumn, TableDataItem, TableProps } from '../types.ts';
+import type { TableColumn, TableProps } from '../types.ts';
 declare const _default: __VLS_WithSlots<import("vue").DefineComponent<TableProps, {}, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").PublicProps, Readonly<TableProps> & Readonly<{}>, {
     border: boolean;
     columns: TableColumn[];
-    data: TableDataItem[];
+    data: import("../types.ts").TableDataItem[];
     stripe: boolean;
+    defaultExpandAll: boolean;
     rowTransitionName: string;
 }, {}, {}, {}, string, import("vue").ComponentProvideOptions, false, {}, any>, {
     [x: `column.${string}`]: ((props: {
-        item: TableDataItem;
+        item: import("../types.ts").TableDataItem;
         column: {
             computedWidth?: string | undefined;
             computedMinWidth?: string | undefined;
@@ -23,7 +24,7 @@ declare const _default: __VLS_WithSlots<import("vue").DefineComponent<TableProps
         index: number;
     }) => any) | undefined;
     [x: `field.${string}`]: ((props: {
-        item: TableDataItem;
+        item: import("../types.ts").TableDataItem;
         column: {
             computedWidth?: string | undefined;
             computedMinWidth?: string | undefined;
@@ -37,6 +38,11 @@ declare const _default: __VLS_WithSlots<import("vue").DefineComponent<TableProps
             fixed?: "left" | "right" | undefined;
         };
         index: number;
+    }) => any) | undefined;
+    expand?: ((props: {
+        item: import("../types.ts").TableDataItem;
+        index: number;
+        expanded: boolean;
     }) => any) | undefined;
 }>;
 export default _default;

@@ -51,6 +51,10 @@ export interface TableProps {
      */
     rowKey?: string;
     /**
+     * 是否默认展开全部
+     */
+    defaultExpandAll?: boolean;
+    /**
       * 行过渡动画名称
       * @todo 用于拖拽排序等
       */

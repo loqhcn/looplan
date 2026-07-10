@@ -532,6 +532,16 @@ body {
   gap: var(--lp-space-max);
 }
 
+.sticky {
+  position: sticky;
+}
+.sticky.fixed-left {
+  left: 0;
+}
+.sticky.fixed-right {
+  right: 0;
+}
+
 .lp-label {
   font-size: 14px;
   color: var(--lp-color-info);
@@ -1330,6 +1340,18 @@ body {
 .lp-table td.fixed-left, .lp-table td.fixed-right {
   background-color: #ffffff;
 }
+.lp-table .fixed-left {
+  position: sticky;
+  z-index: 10;
+  background-color: inherit;
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.08);
+}
+.lp-table .fixed-right {
+  position: sticky;
+  z-index: 10;
+  background-color: inherit;
+  box-shadow: -2px 0 4px rgba(0, 0, 0, 0.08);
+}
 
 .lp-table__header-wrapper {
   position: sticky;
@@ -1347,20 +1369,6 @@ body {
 .lp-table__td {
   position: relative;
   background-clip: padding-box;
-}
-
-.fixed-left {
-  position: sticky;
-  z-index: 10;
-  background-color: inherit;
-  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.08);
-}
-
-.fixed-right {
-  position: sticky;
-  z-index: 10;
-  background-color: inherit;
-  box-shadow: -2px 0 4px rgba(0, 0, 0, 0.08);
 }
 
 /* striped */

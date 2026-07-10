@@ -28,7 +28,7 @@ console.log('页面', pages);
 
 function mergeAppRoute(router: any) {
     appRoutes.forEach(route => {
-        console.debug('添加路由', route)
+        // console.debug('添加路由', route)
         router.addRoute(route)
     });
     // 注册路由

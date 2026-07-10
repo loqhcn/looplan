@@ -6,6 +6,7 @@ import { resolve } from 'path';
 export default defineConfig({
 	plugins: [vue()],
 	server: {
+		host: "0.0.0.0",
 		port: 5777
 	},
 	resolve: {
@@ -13,7 +14,7 @@ export default defineConfig({
 			'@': resolve(__dirname, './src'),
 			'looplan': resolve(__dirname, './src'),
 			// 'looplan-ui':resolve(__dirname,'D:\\work\\vue3-component\\looplan-ui\\src'),
-			'@example':resolve(__dirname,'./example')
+			'@example': resolve(__dirname, './example')
 		}
 	},
 	build: {
@@ -31,8 +32,7 @@ export default defineConfig({
 				// 在 UMD 构建模式下为这些外部化的依赖提供一个全局变量
 				globals: {
 					vue: 'Vue',
-					axios: 'axios',
-					'looplan-ui': 'LooplanUi',
+					axios: 'axios'
 				},
 			},
 		},

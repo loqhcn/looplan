@@ -28,6 +28,10 @@ const props = withDefaults(defineProps<LpIconProps>(), {
 })
 
 watch(() => props.is, async (newVal, oldVal) => {
+    if(!newVal){
+        iconText.value = '';
+        return;
+    }
     if (newVal !== oldVal) {
         if (icons[newVal]) {
             iconText.value = "&#x"+icons[newVal];
@@ -36,7 +40,6 @@ watch(() => props.is, async (newVal, oldVal) => {
         try {
             icons[newVal] = await loadIcon(newVal);
             iconText.value = "&#x"+icons[newVal];
-            
         } catch (error) {
             console.error('加载图标失败', error);
         }

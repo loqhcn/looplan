@@ -44,6 +44,7 @@ interface UseFollowReturn {
     followTarget: ReturnType<typeof ref<HTMLElement | string | null>>;
     followOptions: ReturnType<typeof ref<FollowOptions | null>>;
     followAnimationFrame: ReturnType<typeof ref<number | null>>;
+    followDirection: ReturnType<typeof ref<string | null>>;
     arrowDirection: ReturnType<typeof ref<string | null>>;
     arrowSize: ReturnType<typeof ref<number>>;
     arrowStyle: CSSProperties;

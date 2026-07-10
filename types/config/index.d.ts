@@ -1,6 +1,5 @@
-import type { ModuleLoadMode } from '../types/component';
-declare const isEsm: boolean;
-declare const LooplanConfig: {
-    mode: ModuleLoadMode;
-};
-export { LooplanConfig, isEsm, };
+interface LooplanConfig {
+    mode: 'es' | 'umd';
+}
+declare const looplanConfig: LooplanConfig;
+export { looplanConfig, type LooplanConfig, };

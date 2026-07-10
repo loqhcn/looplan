@@ -36,7 +36,7 @@ async function bootstrap() {
     const app = createApp(App);
     app.use(LooplanUi.default);
     app.use(currentLib);
-    Looplan.looplanConfig.mode = 'umd';
+    // Looplan.looplanConfig.mode = 'umd';
 
     setGateway({
         url: 'http://localhost:9000/ComponentGateway.detail',
@@ -64,7 +64,6 @@ async function bootstrap() {
     window.Looplan = Looplan;
     window.LooplanUi = LooplanUi;
     window.LooplanUI = LooplanUi;
-
 }
 
 bootstrap();

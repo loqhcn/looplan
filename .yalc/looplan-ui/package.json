@@ -1,6 +1,6 @@
 {
   "name": "looplan-ui",
-  "version": "1.5.26",
+  "version": "1.5.39",
   "description": "基于Vue3的UI组件库",
   "private": false,
   "type": "module",
@@ -24,11 +24,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/loqhcn/looplan-ui"
+    "url": "https://cnb.cool/looplan/looplan-ui"
   },
   "homepage": "项目主页",
   "bugs": {
-    "url": "https://github.com/loqhcn/looplan-ui/issues"
+    "url": "https://cnb.cool/looplan/looplan-ui/-/issues"
   },
   "files": [
     "dist",
@@ -40,5 +40,5 @@
   "main": "lib/looplan-ui.umd.js",
   "module": "lib/looplan-ui.es.js",
   "types": "types/index.d.ts",
-  "yalcSig": "99c58483210392771d344ded2a0ee70f"
+  "yalcSig": "2a2a4331d917b1522e8db06a7b9df61d"
 }

@@ -6,7 +6,7 @@ interface LongPressElement extends HTMLElement {
     __handleCancel: (event: PointerEvent) => void;
     __handleClick: (event: MouseEvent) => void;
 }
-type LongPressCallback = () => void;
+type LongPressCallback = (event?: PointerEvent) => void;
 /**
  * 长按指令定义
  */

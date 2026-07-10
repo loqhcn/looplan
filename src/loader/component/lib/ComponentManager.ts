@@ -35,6 +35,7 @@ export class ComponentManager {
      * TODO -- 组件包网关加载状态
      * 0 -- 未加载
      * 1 -- 加载中
+     * -1 -- 加载失败
      * 200 -- 已加载
      */
     public pkgGatewayLoading: Record<string, number> = {};
@@ -55,14 +56,16 @@ export class ComponentManager {
      */
     async component(nameRaw: string, component: any = null): Promise<any> {
         const name = this.parseComponentName(nameRaw);
-    
+
         // 注册模式
         if (component) {
             this.components[name] = component;
             return;
         }
 
-            // 获取组件包成员
+        console.log('getMember')
+
+        // 获取组件包成员
         const {
             row,
             componentOption,
@@ -70,10 +73,14 @@ export class ComponentManager {
             name: componentName,
         } = await this.getMember(nameRaw);
 
+        console.log('getMember success')
+
         // 检查组件选项，如果组件需要在使用时加载样式
         if (componentOption && componentOption.styleImportCase === 'use' && componentOption.styleCdn) {
             // 在使用时加载组件特定样式
             await styleManager.loadStyle(name, componentOption.styleCdn, pkgs[pkg]?.version || '');
+
+            console.log('loadStyle success')
         }
 
         // 异步组件则执行函数
@@ -95,24 +102,36 @@ export class ComponentManager {
         // 获取模式
         // console.debug('component 加载组件', name);
         const [packageName, componentName] = name.split('@');
-        
+
         // 未配置的包通过网关加载
         if (!pkgs[packageName]) {
             if (gatewayOptions.length) {
-
-                if (this.pkgGatewayLoading[packageName] == 0 || this.pkgGatewayLoading[packageName] == undefined) {
+                const gatewayStatus = this.pkgGatewayLoading[packageName];
+                if (gatewayStatus === 1) {
+                    await waitLoaded(() => {
+                        const status = this.pkgGatewayLoading[packageName];
+                        return !!pkgs[packageName] || status === -1 || status === 200;
+                    })
+                    if (!pkgs[packageName]) {
+                        throw new Error(`从网关加载组件包失败: ${packageName}`);
+                    }
+                } else {
+                    if (gatewayStatus === -1) {
+                        this.pkgGatewayLoading[packageName] = 0;
+                    }
                     this.pkgGatewayLoading[packageName] = 1;
                     try {
                         const cfg = await getComponentPackage(packageName);
+                        if (!cfg) {
+                            throw new Error(`从网关加载组件包失败: ${packageName}`);
+                        }
                         pkgs[packageName] = cfg;
+                        this.pkgGatewayLoading[packageName] = 200;
                     } catch (error) {
-                        console.error('从网关加载组件包失败', packageName, error);
+                        this.pkgGatewayLoading[packageName] = -1;
+                        console.error('从网关加载组件包失败', packageName);
+                        throw error;
                     }
-                } else {
-                    // 等待加载完成, 防止重复加载
-                    await waitLoaded(() => {
-                        return !!pkgs[packageName];
-                    })
                 }
             }
         }
@@ -143,11 +162,11 @@ export class ComponentManager {
         }
 
         return {
-            pkgConfig:pkgConfig,
+            pkgConfig: pkgConfig,
             componentOption: componentOption,
             row,
-            pkg:packageName,
-            name:componentName,
+            pkg: packageName,
+            name: componentName,
         };
     }
 
@@ -258,8 +277,11 @@ export class ComponentManager {
             // 等待加载完成, 防止重复加载
             if (cfg.loadStatus === 1) {
                 await waitLoaded(() => {
-                    return !!pkgsLoaded[packageName];
+                    return !!pkgsLoaded[packageName] || cfg.loadStatus === -1;
                 })
+                if (!pkgsLoaded[packageName]) {
+                    throw new Error(`加载组件包失败: ${packageName}`);
+                }
             }
         }
 
@@ -319,7 +341,7 @@ export class ComponentManager {
 
                 const url = source.replace('__version__', version || '');
                 const loaded = await RemoteLoader.load(url);
-                
+
                 if (useEs) {
                     // 兼容 default 导出对象 和 命名导出两种 ESM 结构
                     const moduleObject = (loaded && loaded.default && typeof loaded.default === 'object')

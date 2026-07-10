@@ -1,5 +1,5 @@
 <template>
-    <div class="m-tip">
+    <div class="looplan-loading">
         Loading...
     </div>
 </template>

@@ -70,7 +70,7 @@ declare class Layer {
         transitionComponent?: any;
         /**
          * 过渡动画类型
-         * @example 'fade' | 'zoom' | 'slide-top' | 'slide-bottom' | 'slide-left' | 'slide-right' | 'drawer-right' | 'drawer-left' | 'drawer-top' | 'drawer-bottom'
+         * @example 'fade' | 'zoom' | 'slide-top' | 'slide-bottom' | 'slide-left' | 'slide-right' | 'expand' | 'expand-xy' | 'drawer-right' | 'drawer-left' | 'drawer-top' | 'drawer-bottom'
          */
         transition?: string;
         /**
@@ -177,6 +177,7 @@ declare class Layer {
     props(props: any): this;
     containerProps(props: any): this;
     containerModel(model: any): this;
+    appendTo(el: HTMLElement | string): this;
     /**
      * 设置是否开启遮罩层
      * @param use 是否开启(true时开启，false时关闭)
@@ -211,7 +212,7 @@ declare class Layer {
     /**
      * 设置过渡类型
      * @param type 过渡类型
-     * @example 'fade' | 'zoom' | 'slide-top' | 'slide-bottom' | 'slide-left' | 'slide-right' | 'drawer-right' | 'drawer-left' | 'drawer-top' | 'drawer-bottom'
+     * @example 'fade' | 'zoom' | 'slide-top' | 'slide-bottom' | 'slide-left' | 'slide-right' | 'expand' | 'expand-xy' | 'drawer-right' | 'drawer-left' | 'drawer-top' | 'drawer-bottom'
      * @returns
      */
     transition(type: string): this;
@@ -289,7 +290,7 @@ declare class Layer {
     /**
      * 关闭层
      */
-    close(): void;
+    close($destroy?: boolean): void;
     /**
      * 关闭所有层
      * @param check 过滤方法

@@ -127,6 +127,7 @@ export interface TreeItem {
      */
     data: any;
     children?: TreeItem[];
+    pending?: boolean;
 }
 /**
  * 构建树节点

@@ -173,15 +173,11 @@ function loadComponent(name: string, options = {}) {
         loader: () => {
             return new Promise(async (resolve, reject) => {
                 try {
-                    // 打印调试信息，显示正在加载的组件名称
-                    // console.debug('-- 加载组件:', name);
                     // 从组件管理器中获取组件
                     let component = await componentManager.component(name);
                     // 如果组件不存在，拒绝 Promise 并抛出错误
                     if (!component) {
                         reject(new Error('组件不存在:' + name));
-                        // reject("new Error('组件不存在:' + name)");
-
                         return;
                     }
                     // 如果组件存在，解析 Promise 并返回组件

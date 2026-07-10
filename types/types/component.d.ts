@@ -1,4 +1,3 @@
-export type ModuleLoadMode = 'es' | 'umd';
 /**
  * 组件选项类型
  */

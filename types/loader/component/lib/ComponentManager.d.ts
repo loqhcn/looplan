@@ -1,4 +1,9 @@
 import type { ComponentOption, ComponentPackageConfig, LoadedModule } from '@/types/component';
+declare global {
+    interface Window {
+        [key: string]: any;
+    }
+}
 /**
  * TODO 组件管理器
  *
@@ -9,6 +14,7 @@ export declare class ComponentManager {
      * TODO -- 组件包网关加载状态
      * 0 -- 未加载
      * 1 -- 加载中
+     * -1 -- 加载失败
      * 200 -- 已加载
      */
     pkgGatewayLoading: Record<string, number>;
@@ -79,7 +85,9 @@ export declare class ComponentManager {
      */
     registerPackage(cfg: ComponentPackageConfig): void;
     /**
-     * TODO -- 通过远程地址加载组件包
+     * TODO -- 通过 CDN 加载全局 UMD 包
+     * @todo 添加script
+     * @todo 读取已加载数据
      * @param packageInfo 组件包配置
      * @returns 组件包数据
      */

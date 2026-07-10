@@ -1,3 +1,4 @@
+import type { TreeEventOptions, TreeEventPayload, TreeSelectOptions } from '../lp-tree/types';
 export interface MenuItem {
     [key: string]: any;
 }
@@ -18,6 +19,8 @@ export interface MenuProps {
     defaultOpeneds?: any[];
     indent?: number;
     load?: (node: any) => Promise<MenuItem[]>;
+    selectOptions?: Partial<TreeSelectOptions>;
+    eventOptions?: TreeEventOptions;
 }
 export interface MenuSelectEvent {
     value: any;
@@ -27,4 +30,5 @@ export interface MenuEmits {
     (e: 'update:modelValue', value: any): void;
     (e: 'change', value: any): void;
     (e: 'select', event: MenuSelectEvent): void;
+    (e: 'event', event: TreeEventPayload): void;
 }

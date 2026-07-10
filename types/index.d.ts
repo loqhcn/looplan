@@ -18,6 +18,7 @@ export type { ComponentOption, LoadedModule, ComponentPackageConfig } from '@/ty
 export type { GatewayOption } from '@/types/index';
 export type { IconPackageConfig, IconGatewayOption } from '@/components/lp-icon/types/index';
 export type { ApiRetryOption, } from './api';
+export { looplanConfig, type LooplanConfig } from './config';
 export type { IdArr, FilterOption, FilterValue, FilterOptionValue, ApiError, ApiResult, ListSortType, listApiResult, PaginateApiResult, PaginatePageStatus, PaginateXOptions, PaginateXApiResult, PaginateXPageStatus, } from './types/model-client';
 export { LooplanException, install, LpComponent, LpIcon, LpSvg, createApi, JsDataType, typeDefaultValue, setPkg, regPkg, registerLooplanComponents, setComponentPackage, registerPackage, loadComponent, asyncComponentDelay, nameIsUseAsyncComponent, getComponentOption, resolveComponent, loadStyle, unloadStyle, isStyleLoaded, getLoadedStyles, unloadAllStyles, gatewayOptions, setGateway, getComponentPackage, loadIcon, setIconPackage, IconPackages, mountIconfont, unmountIconfont, iconGatewayOptions, setIconGateway, getIconPackage, ModelSpace, ModelClient, modelSpaceMap, useModelSpace, };
 declare const _default: {

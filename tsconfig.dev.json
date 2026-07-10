@@ -108,10 +108,10 @@
     "skipLibCheck": true /* 跳过对所有 .d.ts 文件的类型检查 */
   },
   "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue",
-    "src/**/*.d.ts",
+    // "src/**/*.ts",
+    // "src/**/*.tsx",
+    // "src/**/*.vue",
+    // "src/**/*.d.ts",
   ],
   "exclude": [
     "node_modules",
