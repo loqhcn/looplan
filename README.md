@@ -2,7 +2,9 @@
 # Looplan
 
 [查看文档 Documentation](http://doc.looplan.cn/looplan)
-<a href="http://doc.looplan.cn/looplan" target="_blank" rel="noopener noreferrer" style="color: #007bff;font-size: 18px;">查看文档</a>
+
+[github 开源地址](https://github.com/loqhcn/looplan.git)
+
 
 vue3云组件库开发, 目的是用于开发和使用云组件,并封装常用JS库提供快速开发
 - 当前处于开发阶段, 不建议在生产环境使用
